@@ -21,7 +21,6 @@ h1 {
 /*
  * Sidebar
  */
-
 	.main-container{
 		padding-top: 8px;
 		display: inline-block;
@@ -33,10 +32,11 @@ h1 {
 		overflow-x: scroll;
 		overflow-y: hidden;
 		height: calc(100vh - 54px);
-		background: #448AFF;
+		background: #e2e2e2;
 	}
 	
 	.scroll-y-container{
+		padding: 5px;
 		display: inline-block;
 		width: max-content;
 	}
@@ -52,19 +52,30 @@ h1 {
 	}
 	
 	.card-custom-title{
-		margin-bottom: 10px;
 		line-height: 30px;
-		background: #0d5482;
+		background: #009eff;
 		padding-left: 10px;
 		border-radius: 3px 3px 0 0;
 		color: white;
 	}
-	
+	.card-custom-title span{
+		font-weight: 200;
+	}
+	.card-custom-title button {
+		margin:5px;
+		padding: 0px 3px;
+		float:right
+	}
+	.tasks-list{
+		padding-top: 10px;
+		overflow-y: auto;
+		overflow-x: hidden;
+		max-height: calc(100vh - 140px);
+	}
 	.task {
-		border: 1px solid #e8e8e8;
 		line-height: 14px;
 		font-size: 11px;
-		background-color: #efefef;
+		background-color: #e4e4e4;
 		padding: 11px;
 		border-radius: 3px;
 		margin: 0px 10px 10px 10px;
