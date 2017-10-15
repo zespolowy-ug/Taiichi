@@ -47,7 +47,7 @@ h1 {
 		box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
 		display: inline-block;
 		float: left;
-		margin: 10px;
+		margin: 5px;
 		width: 250px;
 		height: auto;
 		border-radius: 3px;
@@ -87,7 +87,7 @@ h1 {
 	}
 	
 	.tasks-list{
-		padding-top: 10px;
+		padding-top: 5px;
 		overflow-y: auto;
 		overflow-x: hidden;
 		max-height: calc(100vh - 180px);
@@ -99,7 +99,7 @@ h1 {
 		background-color: #e4e4e4;
 		padding: 11px;
 		border-radius: 3px;
-		margin: 0px 10px 10px 10px;
+		margin: 0px 5px 5px 5px;
 		cursor: pointer;
 	}
 	.task:hover{
