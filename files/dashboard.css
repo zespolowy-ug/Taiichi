@@ -1,0 +1,120 @@
+/*
+ * Base structure
+ */
+
+/* Move down content because we have a fixed navbar that is 50px tall */
+body {
+  padding-top: 50px;
+  background: #455A64;
+}
+
+/*
+ * Typography
+ */
+
+h1 {
+  margin-bottom: 20px;
+  padding-bottom: 9px;
+  border-bottom: 1px solid #eee;
+}
+
+/*
+ * Sidebar
+ */
+
+	.main-container{
+		padding-top: 8px;
+		display: inline-block;
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		overflow-x: scroll;
+		overflow-y: hidden;
+		height: calc(100vh - 54px);
+		background: #448AFF;
+	}
+	
+	.scroll-y-container{
+		display: inline-block;
+		width: max-content;
+	}
+	
+	.card-custom{
+		display: inline-block;
+		float: left;
+		margin: 10px;
+		width: 250px;
+		height: auto;
+		border-radius: 3px;
+		background-color: white;
+	}
+	
+	.card-custom-title{
+		margin-bottom: 10px;
+		line-height: 30px;
+		background: #0d5482;
+		padding-left: 10px;
+		border-radius: 3px 3px 0 0;
+		color: white;
+	}
+	
+	.task {
+		border: 1px solid #e8e8e8;
+		line-height: 14px;
+		font-size: 11px;
+		background-color: #efefef;
+		padding: 11px;
+		border-radius: 3px;
+		margin: 0px 10px 10px 10px;
+		
+	}
+ 
+.sidebar {
+  position: fixed;
+  top: 51px;
+  bottom: 0;
+  left: 0;
+  z-index: 1000;
+  padding: 20px;
+  overflow-x: hidden;
+  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
+  border-right: 1px solid #eee;
+}
+
+/* Sidebar navigation */
+.sidebar {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.sidebar .nav {
+  margin-bottom: 20px;
+}
+
+.sidebar .nav-item {
+  width: 100%;
+}
+
+.sidebar .nav-item + .nav-item {
+  margin-left: 0;
+}
+
+.sidebar .nav-link {
+  border-radius: 0;
+}
+
+/*
+ * Dashboard
+ */
+
+ /* Placeholders */
+.placeholders {
+  padding-bottom: 3rem;
+}
+
+.placeholder img {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
