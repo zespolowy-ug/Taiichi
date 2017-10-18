@@ -87,6 +87,7 @@ h1 {
 	}
 	
 	.tasks-list{
+		min-height: 65px;
 		padding-left: 0;
 		list-style-type: none;
 		overflow-y: auto;
@@ -107,7 +108,6 @@ h1 {
 		border-left: 4px solid red;
 		line-height: 14px;
 		font-size: 11px;
-		background-color: #eeeeee;
 		padding: 11px;
 		cursor: pointer;
 		border-bottom: 1px solid #e2e2e2;
