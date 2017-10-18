@@ -32,7 +32,7 @@ h1 {
 		overflow-x: scroll;
 		overflow-y: hidden;
 		height: calc(100vh - 54px);
-		background: #e2e2e2;
+		background: #0076bf;
 	}
 	
 	.scroll-y-container{
@@ -90,13 +90,23 @@ h1 {
 		padding-top: 5px;
 		overflow-y: auto;
 		overflow-x: hidden;
-		max-height: calc(100vh - 180px);
+		max-height: calc(100vh - 165px);
 		
 	}
+	
+	.brd-orange {
+		border-left: 3px solid #ffc400 !important;
+	}
+	
+	.brd-green {
+		border-left: 3px solid #33ff6f  !important;
+	}
+	
 	.task {
+		border-left: 3px solid red;
 		line-height: 14px;
 		font-size: 11px;
-		background-color: #e4e4e4;
+		background-color: #eeeeee;
 		padding: 11px;
 		border-radius: 3px;
 		margin: 0px 5px 5px 5px;
