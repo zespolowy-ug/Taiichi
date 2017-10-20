@@ -5,43 +5,14 @@
     <meta name="author" content="">
     <link rel="icon" href="https://v4-alpha.getbootstrap.com/favicon.ico">
     <title>Taiichi</title>
-    <link href="./files/bootstrap.min.css" rel="stylesheet">
-    <link href="./files/dashboard.css" rel="stylesheet">
+    <link href="/public/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/assets/css/dashboard.css" rel="stylesheet">
   </head>
 
   <body>
-    <nav style="background:#009eff !important" class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <a class="navbar-brand" href="https://v4-alpha.getbootstrap.com/examples/dashboard/#"><img src="./files/logo.png" height="32"> Taiichi</a>
 
-      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="">Projekty</a>
-          </li>
-		  <li class="nav-item active">
-            <a class="nav-link" href="">Rozmowy</a>
-          </li>
-		  <li class="nav-item active">
-            <a class="nav-link" href="">Twoje zadania</a>
-          </li>
-        </ul>
-        <div class="mt-2 mt-md-0">
-			<div class="dropdown">
-			  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				jgodziuk
-			  </button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-				<button class="dropdown-item" type="button">Action</button>
-				<button class="dropdown-item" type="button">Another action</button>
-				<button class="dropdown-item" type="button">Something else here</button>
-			  </div>
-			</div>
-        </div>
-      </div>
-    </nav>
+  <% include ../partials/header %>
+
 
     <div class="container-fluid">
       <div class="row">
@@ -225,11 +196,12 @@
       </div>
     </div>
 
-    <script src="./files/jquery-3.1.1.slim.min.js.download" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="./files/tether.min.js.download" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
-    <script src="./files/bootstrap.min.js.download"></script>
-    <script src="./files/ie10-viewport-bug-workaround.js.download"></script>
-  
+    <!--<script src="/public/jquery-3.1.1.slim.min.js.download" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>-->
+    <!--<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>-->
+    <!--<script src="/public/tether.min.js.download" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>-->
+    <!--<script src="/public/bootstrap.min.js.download"></script>-->
+    <!--<script src="/public/ie10-viewport-bug-workaround.js.download"></script>-->
+  <script src="/public/plugins/jquery/jquery-3.2.1.min.js"></script>
+  <script src="/public/plugins/bootstrap/bootstrap.min.js"></script>
 
 </body></html>
