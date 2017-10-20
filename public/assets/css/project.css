@@ -34,13 +34,13 @@ h1 {
 		height: calc(100vh - 54px);
 		background: #0076bf;
 	}
-	
+
 	.scroll-y-container{
 		padding: 5px;
 		display: inline-block;
 		width: max-content;
 	}
-	
+
 	.card-custom{
 		-webkit-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
 		-moz-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
@@ -63,10 +63,10 @@ h1 {
 		cursor: pointer;
 	}
 	.card-button:hover{
-		background: #292929; 
+		background: #292929;
 		transition: 0.2s;
 	}
-	
+
 	.card-custom-title{
 		line-height: 30px;
 		background: #009eff;
@@ -85,7 +85,7 @@ h1 {
 	button {
 		cursor: pointer;
 	}
-	
+
 	.tasks-list{
 		min-height: 65px;
 		padding-left: 0;
@@ -93,17 +93,17 @@ h1 {
 		overflow-y: auto;
 		overflow-x: hidden;
 		max-height: calc(100vh - 165px);
-		
+
 	}
-	
+
 	.brd-orange {
 		border-left: 4px solid #ffc400 !important;
 	}
-	
+
 	.brd-green {
 		border-left: 4px solid #33ff6f  !important;
 	}
-	
+
 	.task {
 		border-left: 4px solid red;
 		line-height: 14px;
@@ -115,7 +115,7 @@ h1 {
 	.task:active{
 		background-color: #ffd7d7;
 	}
-	
+
 .sidebar {
   position: fixed;
   top: 51px;
