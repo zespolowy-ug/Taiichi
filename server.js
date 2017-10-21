@@ -18,7 +18,7 @@ app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}))
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-
+hbs.registerPartials(__dirname + '/views/partials');
 
 
 //Models
@@ -27,11 +27,11 @@ var models = require("./app/models");
 //Sync Database
 models.sequelize.sync().then(function() {
 
-    console.log('Nice! Database looks fine')
+    console.log('Nice! Database looks fine');
 
 }).catch(function(err) {
 
-    console.log(err, "Something went wrong with the Database Update!")
+    console.log(err, "Something went wrong with the Database Update!");
 
 });
 

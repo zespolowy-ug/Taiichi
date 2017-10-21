@@ -8,6 +8,6 @@ Projekt do zarządzania metodologią kanban
 - run npm install in root directory,
 - run mySql database (i.e. xampp for windows, mamp for mac),
 - create db: taiichi_main
-- create table users(id(primary key), username, email, password, created, modified ),
-- create .env file in root directory,
+- create .env file in root directory (included in repo),
+- run node server.js
 - visit http://localhost:5000/
