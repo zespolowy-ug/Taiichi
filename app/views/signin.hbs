@@ -2,17 +2,31 @@
 <html>
 
 <head>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Taiichi</title>
+    <link href="/public/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/assets/css/signin.css" rel="stylesheet">
+
+    <script src="/public/plugins/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/public/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/public/plugins/bootstrap/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <form id="signin" name="signin" method="post" action="signin">
-        <label for="email">Email Address</label>
-        <input class="text" name="email" type="text" />
-        <label for="password">Password</label>
-        <input name="password" type="password" />
-        <input class="btn" type="submit" value="Sign In" />
+  <div class="main text-center">
+    <form class="signin-form col-6" id="signin" name="signin" method="post" action="signin">
+        <h1 class="signin-form__header">Sign in</h1>
+        <div class="signin-form__inputs">
+          <input class="signin-form__input" name="email" type="text" placeholder="Email address"/>
+          <input class="signin-form__input" name="password" type="password" placeholder="Password"/>
+        </div>
+        <input class="btn btn-primary signin-form__button" type="submit" value="Sign In" />
     </form>
+  </div>
+
 
 </body>
 
