@@ -2,22 +2,35 @@
 <html>
 
 <head>
-    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Taiichi</title>
+    <link href="/public/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="/public/assets/css/signup.css" rel="stylesheet">
+
+    <script src="/public/plugins/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/public/plugins/jquery-ui/jquery-ui.min.js"></script>
+    <script src="/public/plugins/bootstrap/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <form id="signup" name="signup" method="post" action="/signup">
-        <label for="email">Email Address</label>
-        <input class="text" name="email" type="email" />
-        <label for="firstname">Firstname</label>
-        <input name="firstname" type="text" />
-        <label for="lastname">Lastname</label>
-        <input name="lastname" type="text" />
-        <label for="password">Password</label>
-        <input name="password" type="password" />
-        <input class="btn" type="submit" value="Sign Up" />
-    </form>
-
+    <div class="row">
+        <div id="cont">
+            <form id="signup" name="signup" method="post" action="/signup">
+                <h1 class="signin-form__header">Taiichi</h1>
+                <h3>Rejestracja</h3>
+                <div class="form-group">
+                    <input type="email" name="email"  class="form-control email" placeholder="Adres e-mail">
+                    <input type="text" name="firstname"  class="form-control firstname" placeholder="Imię">
+                    <input type="text" name="lastname"  class="form-control lastname" placeholder="Nazwisko">
+                    <input type="password" name="password"  class="form-control password"  placeholder="Hasło">
+                </div>
+              <button type="submit" value="Sign Up" class="btn btn-outline-success signup">Zarejestruj się</button>
+            </form>
+        </div>
+    </div>
 </body>
 
 </html>

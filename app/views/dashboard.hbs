@@ -14,6 +14,55 @@
 </head>
 
   <body>
+   <nav style="background:#009eff !important" class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+        <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#"><img src="/public/assets/img/logo.png" style="height:32px;"> Taiichi</a>
 
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link active" href="/dashboard">Projekty</a>
+                </li>
+            </ul>
+            <div class="mt-2 mt-md-0">
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        jgodziuk
+                    </button>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                        <a class="dropdown-item" href="#">Wyloguj się</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
   </body>
   </html>
+
+  <script type="text/javascript">
+    $( document ).ready(function() {
+        console.log( "Document ready!" );
+
+        var userEmail = 'godziukjacek@gmail.com'; //TODO pobrac username
+        $('#userDropdown').html(userEmail);
+        getAllProjectsForUser(userEmail);
+    });
+
+    function getAllProjectsForUser(userEmail) {
+      $.ajax({
+        type     : "POST",
+        url      : "getAllProjectsForUser.html",  //TODO url
+        data     : {
+            userEmail : userEmail
+        },
+        success: function(ret) {  //TODO
+
+        },
+        error: function(jqXHR, errorText, errorThrown) {
+          console.log("Error occured at getAllProjectsForUser()");
+        }
+    });
+    }
+  </script>
