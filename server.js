@@ -27,8 +27,6 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', '.hbs');
 
-
-
 //For BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -38,42 +36,27 @@ app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true}))
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
-// hbs.registerPartials(__dirname + '/views/partials');
-
-
 //Models
 var models = require("./app/models");
 
 //Sync Database
 models.sequelize.sync().then(function() {
-
     console.log('Nice! Database looks fine');
-
 }).catch(function(err) {
-
     console.log(err, "Something went wrong with the Database Update!");
-
 });
-
-
-
-
-
 
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
 //load passport strategies
 require('./app/config/passport/passport.js')(passport, models.user);
 
-
 //PUBLIC FOLDER
 app.use("/public", express.static(path.join(__dirname, 'public')));
 
 //Middleware
 app.listen(5000, function(err) {
-
     if (!err)
         console.log("Site is live");
     else console.log(err)
-
 });

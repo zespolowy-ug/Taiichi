@@ -1,13 +1,17 @@
 # Taiichi
 Projekt do zarządzania metodologią kanban
 
+## Autorzy:
+- [Cendrowski Paweł](https://github.com/pcendrowski),
+- [Godziuk Jacek](https://github.com/jgodziuk),
+- [Tkaczyk Michał](https://github.com/emkate)
 
-## Running project:
 
-- clone project,
-- run npm install in root directory,
-- run mySql database (i.e. xampp for windows, mamp for mac),
-- create db: taiichi_main
-- create .env file in root directory (included in repo),
-- run node server.js
-- visit http://localhost:5000/
+## Uruchamianie projektu:
+
+- sklonuj projekt,
+- uruchom npm install w katalogu głównym,
+- włącz bazę danych mySql (np. xampp dla windowsa, mamp dla maca),
+- utwórz plik .env w katalogu głównym (zawartość: NODE_ENV='development'),
+- uruchom node server.js,
+- wejdź na http://localhost:5000/
