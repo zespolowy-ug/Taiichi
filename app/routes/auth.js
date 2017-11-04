@@ -33,4 +33,9 @@ module.exports = function(app, passport) {
     app.get('/dashboard', isLoggedIn, authController.dashboard);
     app.get('/project', isLoggedIn, authController.project);
 
+    //Routes
+    app.get('/', isLoggedIn, function(req, res){
+        res.redirect('/dashboard');
+    });
+
 };

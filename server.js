@@ -6,8 +6,28 @@ var bodyParser = require('body-parser');
 var env = require('dotenv').load();
 var exphbs = require('express-handlebars');
 var app = express();
-//ejs - view engine
-app.set('view engine', 'ejs');
+
+var viewsPath = path.join(__dirname, 'app', 'views');
+//For Handlebars
+app.set('views', viewsPath);
+//handlebars - view engine
+app.engine('hbs', exphbs({
+    extname: '.hbs',
+    defaultLayout: 'main',
+    layoutsDir: viewsPath + '/layouts/',
+    partialsDir: viewsPath + '/partials/',
+    helpers: {
+        section: function(name, options){
+            if(!this._sections) this._sections = {};
+            this._sections[name] = options.fn(this);
+            return null;
+        }
+    }
+}));
+
+app.set('view engine', '.hbs');
+
+
 
 //For BodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -36,22 +56,11 @@ models.sequelize.sync().then(function() {
 });
 
 
-//For Handlebars
-app.set('views', './app/views')
-app.engine('hbs', exphbs({
-    extname: '.hbs'
-}));
-app.set('view engine', '.hbs');
 
-//Routes
-app.get('/', function(req, res) {
-    res.send('Welcome to Passport with Sequelize');
-});
+
+
 
 var authRoute = require('./app/routes/auth.js')(app,passport);
-// app.get('/', function(req, res) {
-//     res.render('pages/index');
-// });
 
 //load passport strategies
 require('./app/config/passport/passport.js')(passport, models.user);

@@ -1,83 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Taiichi</title>
-    <link href="/public/plugins/bootstrap/bootstrap.min.css" rel="stylesheet">
+{{#section 'styles'}}
     <link href="/public/assets/css/project.css" rel="stylesheet">
+{{/section}}
+{{> header}}
 
-    <script src="/public/plugins/jquery/jquery-3.2.1.min.js"></script>
-    <script src="/public/plugins/jquery-ui/jquery-ui.min.js"></script>
-    <script src="/public/plugins/bootstrap/bootstrap.min.js"></script>
-  </head>
+<div class="container-fluid">
+  <div class="row">
+    <main class="">
+		<div class="main-container">
+			<div class="scroll-y-container">
 
-  <body>
-    <nav style="background:#009eff !important" class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-        <button class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a class="navbar-brand" href="#"><img src="/public/assets/img/logo.png" style="height:32px;"> Taiichi</a>
-
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Projekty</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Rozmowy</a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="">Twoje zadania</a>
-                </li>
-            </ul>
-            <div class="mt-2 mt-md-0">
-                <div class="dropdown">
-                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        jgodziuk
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                        <button class="dropdown-item" type="button">Action</button>
-                        <button class="dropdown-item" type="button">Another action</button>
-                        <button class="dropdown-item" type="button">Something else here</button>
+				<div class="card-custom sortable">
+                    <div class="card-custom-wrapper">
+						<div class="card-custom-title">
+							<span>Section title</span>
+							<button class="btn btn-outline-secondary btn-sm" type="button">⨯</button>
+						</div>
+						<ul class="tasks-list">
+							<li class="task">
+								<h6>Task title</h6>
+								Task description goes here
+							</li>
+							<li class="task brd-orange">
+								<h6>Task title</h6>
+								Task description goes here
+							</li>
+							<li class="task brd-green">
+								<h6>Task title</h6>
+								Task description goes here
+							</li>
+						</ul>
+						<button class="btn btn-outline-primary btn-sm" style="float:right;margin:5px;margin-top: -10px;">Dodaj</button>
                     </div>
-                </div>
-            </div>
-        </div>
-    </nav>
+				</div>
 
-
-    <div class="container-fluid">
-      <div class="row">
-        <main class="">
-			<div class="main-container">
-				<div class="scroll-y-container">
-
-					<div class="card-custom sortable">
-						<div class="card-custom-title">
-							<span>Section title</span>
-							<button class="btn btn-outline-secondary btn-sm" type="button">⨯</button>
-						</div>
-						<ul class="tasks-list">
-							<li class="task">
-								<h6>Task title</h6>
-								Task description goes here
-							</li>
-							<li class="task brd-orange">
-								<h6>Task title</h6>
-								Task description goes here
-							</li>
-							<li class="task brd-green">
-								<h6>Task title</h6>
-								Task description goes here
-							</li>
-						</ul>
-						<button class="btn btn-outline-primary btn-sm" style="float:right;margin:5px;margin-top: -10px;">Dodaj</button>
-					</div>
-
-					<div class="card-custom sortable">
+				<div class="card-custom sortable">
+                    <div class="card-custom-wrapper">
 						<div class="card-custom-title">
 							<span>Section title</span>
 							<button class="btn btn-outline-secondary btn-sm" type="button">⨯</button>
@@ -93,9 +50,11 @@
 							</li>
 						</ul>
 						<button class="btn btn-outline-primary btn-sm" style="float:right;margin:5px;margin-top: -10px;">Dodaj</button>
-					</div>
+                    </div>
+				</div>
 
-					<div class="card-custom sortable">
+				<div class="card-custom sortable">
+                    <div class="card-custom-wrapper">
 						<div class="card-custom-title">
 							<span>Section title</span>
 							<button class="btn btn-outline-secondary btn-sm" type="button">⨯</button>
@@ -111,9 +70,11 @@
 							</li>
 						</ul>
 						<button class="btn btn-outline-primary btn-sm" style="float:right;margin:5px;margin-top: -10px;">Dodaj</button>
-					</div>
+                    </div>
+				</div>
 
-					<div class="card-custom sortable">
+				<div class="card-custom sortable">
+                    <div class="card-custom-wrapper">
 						<div class="card-custom-title">
 							<span>Section title</span>
 							<button class="btn btn-outline-secondary btn-sm" type="button">⨯</button>
@@ -129,9 +90,11 @@
 							</li>
 						</ul>
 						<button class="btn btn-outline-primary btn-sm" style="float:right;margin:5px;margin-top: -10px;">Dodaj</button>
-					</div>
+                    </div>
+				</div>
 
-					<div class="card-custom sortable">
+				<div class="card-custom sortable">
+                    <div class="card-custom-wrapper">
 						<div class="card-custom-title">
 							<span>Section title</span>
 							<button class="btn btn-outline-secondary btn-sm" type="button">⨯</button>
@@ -147,9 +110,11 @@
 							</li>
 						</ul>
 						<button class="btn btn-outline-primary btn-sm" style="float:right;margin:5px;margin-top: -10px;">Dodaj</button>
-					</div>
+                    </div>
+				</div>
 
-					<div class="card-custom sortable">
+				<div class="card-custom sortable">
+                    <div class="card-custom-wrapper">
 						<div class="card-custom-title">
 							<span>Section title</span>
 							<button class="btn btn-outline-secondary btn-sm" type="button">⨯</button>
@@ -165,23 +130,22 @@
 							</li>
 						</ul>
 						<button class="btn btn-outline-primary btn-sm" style="float:right;margin:5px;margin-top: -10px;">Dodaj</button>
-					</div>
+                    </div>
 				</div>
 			</div>
-        </main>
-      </div>
-    </div>
+		</div>
+    </main>
+  </div>
+</div>
 
-    <script>
-      $(".scroll-y-container").sortable({
-      handle: ".card-custom-title",
-      axis: "x"
-    });
+<script>
+  $(".scroll-y-container").sortable({
+  handle: ".card-custom-title",
+  axis: "x"
+});
 
-    $( "ul.tasks-list" ).sortable({
-        connectWith: "ul",
-      dropOnEmpty: true
-      });
-    </script>
-
-</body></html>
+$( "ul.tasks-list" ).sortable({
+    connectWith: "ul",
+  dropOnEmpty: true
+  });
+</script>

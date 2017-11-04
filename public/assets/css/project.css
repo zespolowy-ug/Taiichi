@@ -38,17 +38,26 @@ h1 {
 	.scroll-y-container{
 		padding: 5px;
 		display: inline-block;
-		width: max-content;
+        width: -moz-max-content;
+        width: -webkit-max-content;
+        width: max-content;
 	}
 
-	.card-custom{
+    .card-custom{
+		display: inline-block;
+        float: left;
+        width: 250px;
+        margin: 5px;
+        height: calc(100vh - 96px);
+    }
+
+	.card-custom-wrapper{
 		-webkit-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
 		-moz-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
 		box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
-		display: inline-block;
+        width: 100%;
+        display: inline-block;
 		float: left;
-		margin: 5px;
-		width: 250px;
 		height: auto;
 		border-radius: 3px;
 		background-color: white;

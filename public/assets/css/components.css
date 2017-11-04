@@ -1,0 +1,10 @@
+.app-logo{
+    height: 32px;
+}
+
+.no-user-select{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
