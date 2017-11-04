@@ -5,7 +5,7 @@
 /* Move down content because we have a fixed navbar that is 50px tall */
 body {
   padding-top: 50px;
-  background: #455A64;
+  background: #0076bf;
 }
 
 /*
@@ -31,8 +31,8 @@ h1 {
 		top: 0;
 		overflow-x: scroll;
 		overflow-y: hidden;
-		height: calc(100vh - 54px);
-		background: #0076bf;
+		height: calc(100vh - 50px);
+	    background: #8695CA;;
 	}
 
 	.scroll-y-container{
@@ -59,7 +59,6 @@ h1 {
         display: inline-block;
 		float: left;
 		height: auto;
-		border-radius: 3px;
 		background-color: white;
 	}
 	.card-button{
@@ -78,9 +77,8 @@ h1 {
 
 	.card-custom-title{
 		line-height: 30px;
-		background: #009eff;
+	    background: #1F3A93;
 		padding-left: 10px;
-		border-radius: 3px 3px 0 0;
 		color: white;
 	}
 	.card-custom-title span{

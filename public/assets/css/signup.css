@@ -23,18 +23,22 @@ h3{
   padding-top:30px;
 }
 
+.email{
+}
 
 .password{
   margin-top:5px;
 }
 
-.signin{
-  width: 100%;
-  cursor: pointer;
+.firstname{
+  margin-top:5px;
 }
 
-.register{
-  cursor: pointer;
-  margin-top: 5px;
+.lastname{
+  margin-top:5px;
+}
+
+.signup{
   width: 100%;
+  cursor: pointer;
 }
