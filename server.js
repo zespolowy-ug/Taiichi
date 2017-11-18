@@ -46,6 +46,33 @@ models.sequelize.sync().then(function() {
     console.log(err, "Something went wrong with the Database Update!");
 });
 
+app.post('/projectsList', function(req, res){
+
+
+    var findUser = function(){
+        return models.user.findOne({
+            where:{ id: req.user.id},
+            include: [
+                { model: models.users_to_projects, required: true}
+            ]
+        });
+    }
+
+    var findAllProjects = function(){
+        return models.project.findAll();
+    }
+
+    var projectsData = findUser().then(function(data){
+
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+
+});
+
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
 //load passport strategies

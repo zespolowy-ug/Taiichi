@@ -54,9 +54,9 @@ $( document ).ready(function() {
 function getAllProjectsForUser(userEmail) {
     $.ajax({
         type     : "POST",
-        url      : "getAllProjectsForUser.html",  //TODO url
+        url      : "/projectsList",  //TODO url
         data     : {
-            userEmail : userEmail
+            // userEmail : userEmail
         },
         success: function(ret) {  //TODO
 

@@ -1,8 +1,12 @@
+"use strict";
+
 module.exports = function(sequelize, Sequelize) {
 
-    var User = sequelize.define('user', {
+    console.log("WYWOŁANIE users");
 
-        id: {
+    const User = sequelize.define('user', {
+
+        user_id: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
