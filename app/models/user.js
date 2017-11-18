@@ -54,6 +54,12 @@ module.exports = function(sequelize, Sequelize) {
 
     });
 
+    User.associate = (models) => {
+        User.hasMany(models.users_to_projects);
+        
+
+    }
+
     return User;
 
 }

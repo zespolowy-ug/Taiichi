@@ -93,7 +93,7 @@ passport.use('local-signin', new LocalStrategy(
 
 //serialize
 passport.serializeUser(function(user, done) {
-    done(null, user.id);
+    done(null, user.user_id);
 });
 
 // deserialize user

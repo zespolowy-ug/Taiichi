@@ -51,16 +51,19 @@ app.post('/projectsList', function(req, res){
 
     var findUser = function(){
         return models.user.findOne({
-            where:{ id: req.user.id},
+            where:{ user_id: req.user.user_id},
             include: [
-                { model: models.users_to_projects, required: true}
+                {
+                    model: models.users_to_projects,
+                    include: [{
+                        model: models.project
+                    }]
+                }
             ]
         });
     }
 
-    var findAllProjects = function(){
-        return models.project.findAll();
-    }
+
 
     var projectsData = findUser().then(function(data){
 

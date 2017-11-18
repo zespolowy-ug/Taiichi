@@ -23,6 +23,10 @@ console.log("WYWOŁANIE projects");
 
     });
 
+    Project.associate = (models) => {
+        Project.hasMany(models.users_to_projects);
+    }
+
     return Project;
 
 }
