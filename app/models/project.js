@@ -19,6 +19,10 @@ console.log("WYWOŁANIE projects");
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
+        },
+
+        color: {
+            type: Sequelize.STRING
         }
 
     });

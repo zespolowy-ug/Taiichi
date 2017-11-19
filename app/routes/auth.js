@@ -31,7 +31,9 @@ module.exports = function(app, passport) {
     app.get('/logout', authController.logout);
 
     app.get('/dashboard', isLoggedIn, authController.dashboard);
+
     app.get('/project', isLoggedIn, authController.project);
+    app.get('/project/:projectId', isLoggedIn, authController.project);
 
     //Routes
     app.get('/', isLoggedIn, function(req, res){

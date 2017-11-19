@@ -42,28 +42,4 @@
 </div>
 
 
-<script type="text/javascript">
-$( document ).ready(function() {
-    console.log( "Document ready!" );
-
-    var userEmail = 'godziukjacek@gmail.com'; //TODO pobrac username
-    $('#userDropdown').html(userEmail);
-    getAllProjectsForUser(userEmail);
-});
-
-function getAllProjectsForUser(userEmail) {
-    $.ajax({
-        type     : "POST",
-        url      : "/projectsList",  //TODO url
-        data     : {
-            // userEmail : userEmail
-        },
-        success: function(ret) {  //TODO
-
-        },
-        error: function(jqXHR, errorText, errorThrown) {
-          console.log("Error occured at getAllProjectsForUser()");
-        }
-    });
-}
-</script>
+<script src="/public/assets/js/dashboard.js"></script>
