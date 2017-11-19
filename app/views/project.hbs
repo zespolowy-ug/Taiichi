@@ -3,6 +3,8 @@
 {{/section}}
 {{> header}}
 
+<input data-function="projectId" value="{{projectId}}" style="display: none;">
+
 <div class="container-fluid">
   <div class="row">
     <main class="">
@@ -137,15 +139,4 @@
     </main>
   </div>
 </div>
-
-<script>
-  $(".scroll-y-container").sortable({
-  handle: ".card-custom-title",
-  axis: "x"
-});
-
-$( "ul.tasks-list" ).sortable({
-    connectWith: "ul",
-  dropOnEmpty: true
-  });
-</script>
+<script src="/public/assets/js/project.js"></script>

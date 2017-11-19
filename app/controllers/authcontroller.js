@@ -20,32 +20,10 @@ exports.dashboard = function(req, res) {
 
 
 exports.project = function(req, res) {
-    var queryBy = req.params.projectId;
-    console.log("Get the data for " + queryBy);
-    // Some sequelize... :)
-    var findProject = function(){
-        return models.project.findOne({
-            where : {
-            "project_id" : parseInt(queryBy)
-            }
-        });
-    }
-// .success(function(data) {
-//     // Force a single returned object into an array.
-//     data = [].concat(data);
-//     console.log("Got the data " + JSON.stringify(data));
-//     res.send(data);  // This should maybe be res.json instead...
-// });
+    var projectId = req.params.projectId;
 
-
-    var projectData = findProject().then(function(data){
-
-        res.setHeader('Content-Type', 'application/json');
-
-        res.send(JSON.stringify({
-            data: data || null
-        }));
-    });
+    res.render('project', {projectId: projectId, layout: 'main'});
+    
 
 };
 

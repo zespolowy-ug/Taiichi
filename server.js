@@ -47,8 +47,6 @@ models.sequelize.sync().then(function() {
 });
 
 app.post('/projectsList', function(req, res){
-
-
     var findUser = function(){
         return models.user.findOne({
             where:{ user_id: req.user.user_id},
@@ -63,8 +61,6 @@ app.post('/projectsList', function(req, res){
         });
     }
 
-
-
     var projectsData = findUser().then(function(data){
 
         res.setHeader('Content-Type', 'application/json');
@@ -74,6 +70,35 @@ app.post('/projectsList', function(req, res){
         }));
     });
 
+});
+
+app.post('/projectDetails', function(req, res){
+    var projectId = req.param("projectId");
+
+    var findProject = function(){
+        return models.project.findOne({
+            where : {
+            "project_id" : parseInt(projectId)
+        },
+        include: [
+            {
+                model: models.board,
+                include: [{
+                    model: models.task
+                }]
+            }
+        ]
+        });
+    }
+
+    var projectData = findProject().then(function(data){
+
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
 });
 
 var authRoute = require('./app/routes/auth.js')(app,passport);

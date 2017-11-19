@@ -89,6 +89,12 @@ h1 {
 		padding: 0px 3px;
 		float:right;
 	}
+
+    .button__add-task{
+        float:right;
+        margin:5px;
+        margin-top: -10px;
+    }
 	button {
 		cursor: pointer;
 	}
