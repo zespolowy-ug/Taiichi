@@ -3,14 +3,50 @@
 {{/section}}
 {{> header}}
 
+
+
 <div class="main-container">
     <div class="tables-list">
         <div class="tables-list__header">Lista tablic</div>
         <div class="tables-list__content">
-            
+
         </div>
     </div>
 </div>
 
+<!-- The Modal -->
+<div class="modal fade" id="modal-add-project">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-<script src="/public/assets/js/dashboard.js"></script>
+            <div class="modal-header">
+                <h4 class="modal-title">Dodawanie projektu</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="project-name">Nazwa projektu</label>
+                    <input type="text" class="form-control" id="project-name" placeholder="Nazwa projektu">
+              </div>
+                <label for="color-select">Wybierz kolor</label>
+                <select class="form-control" id="color-select">
+                  <option value="blue">Niebieski</option>
+                  <option value="red">Czerwony</option>
+                  <option value="yellow">Żółty</option>
+                  <option value="orange">Pomarańczowy</option>
+                  <option value="purple">Fioletowy</option>
+                  <option value="brown">Brązowy</option>
+                </select>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-primary" data-function="save-new-project">Dodaj</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="/public/assets/js/Dashboard/projectAdd.js"></script>
+<script src="/public/assets/js/Dashboard/dashboard.js"></script>

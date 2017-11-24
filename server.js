@@ -101,6 +101,30 @@ app.post('/projectDetails', function(req, res){
     });
 });
 
+app.post('/projectAdd', function(req, res){
+    var projectName = req.param("name");
+    var projectColor = req.param("color");
+
+    var createProject = function(){
+        return models.project.create({ name: projectName, color: projectColor }).then(projectData => {
+                  models.users_to_projects.create({userUserId : req.user.user_id, projectProjectId : projectData.project_id});
+                  return projectData;
+
+          });
+    };
+
+    var projectData = createProject().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+
+
+
+});
+
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
 //load passport strategies
