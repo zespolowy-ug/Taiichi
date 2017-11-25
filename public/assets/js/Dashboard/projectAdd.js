@@ -1,7 +1,7 @@
 var projectAdd = {};
     projectAdd.$modal = $("#modal-add-project");
-    projectAdd.$projectName = projectAdd.$modal.find("#project-name");
-    projectAdd.$colorSelect = projectAdd.$modal.find("#color-select");
+    projectAdd.$projectName = projectAdd.$modal.find("#project-name-add");
+    projectAdd.$colorSelect = projectAdd.$modal.find("#color-select-add");
     projectAdd.$saveNewProject = projectAdd.$modal.find('[data-function="save-new-project"]');
 
     projectAdd.initView = function(){

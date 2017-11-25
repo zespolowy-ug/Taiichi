@@ -101,6 +101,27 @@ app.post('/projectDetails', function(req, res){
     });
 });
 
+app.post('/projectData', function(req, res){
+    var projectId = req.param("projectId");
+
+    var findProject = function(){
+        return models.project.findOne({
+            where : {
+                "project_id" : parseInt(projectId)
+            }
+        });
+    }
+
+    var projectData = findProject().then(function(data){
+
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
 app.post('/projectAdd', function(req, res){
     var projectName = req.param("name");
     var projectColor = req.param("color");
@@ -109,7 +130,6 @@ app.post('/projectAdd', function(req, res){
         return models.project.create({ name: projectName, color: projectColor }).then(projectData => {
                   models.users_to_projects.create({userUserId : req.user.user_id, projectProjectId : projectData.project_id});
                   return projectData;
-
           });
     };
 
@@ -120,9 +140,60 @@ app.post('/projectAdd', function(req, res){
             data: data || null
         }));
     });
+});
 
+app.post('/projectEdit', function(req, res){
+    var projectId = req.param("projectId");
+    var projectName = req.param("projectName");
+    var projectColor = req.param("projectColor");
 
+    var updateProject = function(){
+        return models.project.find({ where: { project_id: projectId } }).then(projectItem => {
+            projectItem.updateAttributes({
+                name: projectName,
+                color: projectColor
+            })
 
+              return projectItem;
+        });
+    };
+
+    var projectData = updateProject().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+
+});
+
+app.post('/projectDelete', function(req, res){
+    var projectId = req.param("projectId");
+
+    var deleteProject = function(){
+        return models.users_to_projects.destroy({
+            where : {
+                projectProjectId : projectId
+            }
+        }).then(function(data){
+            models.project.destroy({
+                where : {
+                    project_id : projectId
+                }
+            })
+
+            return data;
+        });
+    };
+
+    var projectData = deleteProject().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
 });
 
 var authRoute = require('./app/routes/auth.js')(app,passport);

@@ -62,8 +62,8 @@
 
 .table-item__settings-menu{
     position: absolute;
-    right: -6px;
-    top: -20px;
+    right: 5px;
+    top: 5px;
     width: 24px;
     height: 24px;
     font-size: 18px;
@@ -73,12 +73,22 @@
     background-color: transparent;
     border: 1px transparent solid;
     transition: .3s;
+    outline: none;
 }
 
 .table-item__settings-menu:hover{
     cursor: pointer;
     transition: .3s;
     color: #333;
+    outline: none;
+}
+
+.table-item__settings-menu:active,
+.table-item__settings-menu:focus,
+.table-item__settings-menu:visited{
+    text-decoration: none;
+    outline: none;
+    color: #fff;
 }
 
 .table-item__settings-menu::after {
@@ -121,4 +131,23 @@
 
 .table-item--brown{
     background-color: #7d4627;
+}
+
+.custom-dropdown{
+    position: absolute;
+    width: 120px;
+    border: 1px #000 solid;
+    background-color: #fff;
+    padding: 6px 0;
+}
+
+.custom-dropdown__item{
+    height: 24px;
+    padding: 0 10px;
+    transition: .3s;
+}
+
+.custom-dropdown__item:hover{
+    cursor: pointer;
+    background-color: #efefef;
 }
