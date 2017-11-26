@@ -76,6 +76,7 @@ h1 {
 	}
 
 	.card-custom-title{
+        position: relative;
 		line-height: 30px;
 	    background: #1F3A93;
 		padding-left: 10px;
@@ -84,11 +85,36 @@ h1 {
 	.card-custom-title span{
 
 	}
-	.card-custom-title button {
-		margin:5px;
-		padding: 0px 3px;
-		float:right;
-	}
+
+    .card-custom__settings-menu{
+        position: absolute;
+        right: 5px;
+        top: 4px;
+        width: 24px;
+        height: 24px;
+        font-size: 18px;
+        padding: 0;
+        text-align: center;
+        color: #fff;
+        background-color: transparent;
+        border: 1px transparent solid;
+        transition: .3s;
+        outline: none;
+    }
+
+    .card-custom__settings-menu:hover{
+        cursor: pointer;
+        transition: .3s;
+        color: #ddd;
+        outline: none;
+    }
+
+    .card-custom__settings-menu:active,
+    .card-custom__settings-menu:focus,
+    .card-custom__settings-menu:visited{
+        text-decoration: none;
+        outline: none;
+    }
 
     .button__add-task{
         float:right;

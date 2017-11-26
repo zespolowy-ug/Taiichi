@@ -215,6 +215,72 @@ app.post('/boardAdd', function(req, res){
     });
 });
 
+app.post('/boardData', function(req, res){
+    var boardId = req.param("boardId");
+
+    var findBoard = function(){
+        return models.board.findOne({
+            where : {
+                "board_id" : parseInt(boardId)
+            }
+        });
+    }
+
+    var boardData = findBoard().then(function(data){
+
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+app.post('/boardEdit', function(req, res){
+    var boardId = req.param("boardId");
+    var boardName = req.param("boardName");
+
+    var updateBoard = function(){
+        return models.board.find({ where: { board_id: boardId } }).then(boardItem => {
+            boardItem.updateAttributes({
+                name: boardName,
+            })
+
+              return boardItem;
+        });
+    };
+
+    var boardData = updateBoard().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+
+});
+
+app.post('/boardDelete', function(req, res){
+    var boardId = req.param("boardId");
+
+    var deleteBoard = function(){
+        return models.board.destroy({
+            where : {
+                board_id : boardId
+            }
+        });
+            return data;
+    };
+
+    var projectData = deleteBoard().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
 //load passport strategies

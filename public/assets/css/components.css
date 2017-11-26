@@ -8,3 +8,22 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+.custom-dropdown{
+    position: absolute;
+    width: 120px;
+    border: 1px #000 solid;
+    background-color: #fff;
+    padding: 6px 0;
+}
+
+.custom-dropdown__item{
+    height: 24px;
+    padding: 0 10px;
+    transition: .3s;
+}
+
+.custom-dropdown__item:hover{
+    cursor: pointer;
+    background-color: #efefef;
+}
