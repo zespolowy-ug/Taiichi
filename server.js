@@ -196,6 +196,25 @@ app.post('/projectDelete', function(req, res){
     });
 });
 
+app.post('/boardAdd', function(req, res){
+    var boardName = req.param("boardName");
+    var projectId = req.param("projectId");
+
+    var createBoard = function(){
+        return models.board.create({ name: boardName, projectProjectId: projectId }).then(boardData => {
+                  return boardData;
+          });
+    };
+
+    var boardData = createBoard().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
 //load passport strategies
