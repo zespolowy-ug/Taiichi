@@ -12,6 +12,9 @@ var projectAdd = {};
     };
 
     projectAdd.clearData = function(){
+        $("#project-name-add").val("");
+        var firstSelected = $("#color-select-add").find("option").eq(0).val();
+        $("#color-select-add").val(firstSelected);
 
     };
 
