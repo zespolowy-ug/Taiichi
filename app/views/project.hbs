@@ -90,6 +90,64 @@
     </div>
 </div>
 
+<!-- The Modal -->
+<div class="modal fade" id="modal-add-task">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Dodawanie zadania</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="project-name">Nazwa zadania</label>
+                    <input type="text" class="form-control" id="task-name-add" placeholder="Nazwa">
+                    <label for="project-name">Opis zadania</label>
+                    <textarea type="text" class="form-control" id="task-description-add" placeholder="Opis"></textarea>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-primary" data-function="save-new-task">Dodaj</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- The Modal -->
+<div class="modal fade" id="modal-edit-task">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">Edycja zadania</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="project-name">Nazwa zadania</label>
+                    <input type="text" class="form-control" id="task-name-edit" placeholder="Nazwa">
+                    <label for="project-name">Opis zadania</label>
+                    <textarea type="text" class="form-control" id="task-description-edit" placeholder="Opis"></textarea>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Anuluj</button>
+                <button type="button" class="btn btn-primary" data-function="save-task">Zapisz</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script src="/public/assets/js/Project/taskEdit.js"></script>
+<script src="/public/assets/js/Project/taskAdd.js"></script>
 <script src="/public/assets/js/Project/boardEdit.js"></script>
 <script src="/public/assets/js/Project/boardAdd.js"></script>
 <script src="/public/assets/js/Project/project.js"></script>

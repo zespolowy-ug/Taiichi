@@ -52,14 +52,20 @@ var projectVC = {};
             });
         $.each(boardData.tasks, function(index, taskItem) {
             var $taskItem = $(projectVC.taskTemplate);
+            $taskItem.off('dblclick').dblclick(function(){
+                taskEdit.initView(taskItem.task_id);
+            });
+            $taskItem.attr('data-task-id', taskItem.task_id);
             $taskItem.find('[data-function="task-name"]').text(taskItem.name);
             $taskItem.find('[data-function="task-description"]').text(taskItem.description);
 
-            console.log("TASK ITEM");
             $boardItem.find(".tasks-list").append($taskItem);
         });
 
         $boardItem.find(".card-custom__settings-menu").off('click').click(projectVC.showSettingsDropdown);
+        $boardItem.find('[data-function="button-add-task"]').off('click').click(function(){
+            taskAdd.initView(boardData.board_id);
+        });
 
         $boardItem.insertBefore(projectVC.$boardsList.find('[data-function="add-board-button"]'));
     };
@@ -142,7 +148,7 @@ var projectVC = {};
         '		</div>',
         '		<ul class="tasks-list ui-sortable">',
         '		</ul>',
-        '		<button class="btn btn-outline-primary btn-sm button__add-task">Dodaj</button>',
+        '		<button class="btn btn-outline-primary btn-sm button__add-task" data-function="button-add-task">Dodaj</button>',
         '    </div>',
         '</div>'
     ].join("\n");

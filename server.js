@@ -281,6 +281,73 @@ app.post('/boardDelete', function(req, res){
     });
 });
 
+app.post('/taskAdd', function(req, res){
+    var boardId = req.param("boardId");
+    var taskName = req.param("taskName");
+    var taskDescription = req.param("taskDescription");
+
+
+    var createTask = function(){
+        return models.task.create({ name: taskName, description: taskDescription, boardBoardId: boardId }).then(taskData => {
+              return taskData;
+          });
+    };
+
+    var taskData = createTask().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+app.post('/taskData', function(req, res){
+    var taskId = req.param("taskId");
+
+    var findTask = function(){
+        return models.task.findOne({
+            where : {
+                "task_id" : parseInt(taskId)
+            }
+        });
+    }
+
+    var taskData = findTask().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+app.post('/taskEdit', function(req, res){
+    var taskId = req.param("taskId");
+    var taskName = req.param("taskName");
+    var taskDescription = req.param("taskDescription");
+
+    var updateTask = function(){
+        return models.task.find({ where: { task_id: taskId } }).then(taskItem => {
+            taskItem.updateAttributes({
+                name: taskName,
+                description: taskDescription
+            })
+
+              return taskItem;
+        });
+    };
+
+    var taskData = updateTask().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+
+});
+
 var authRoute = require('./app/routes/auth.js')(app,passport);
 
 //load passport strategies
