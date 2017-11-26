@@ -30,6 +30,7 @@ var projectVC = {};
         });
     };
 
+
     projectVC.appendBoards = function(boardsData){
         projectVC.$boardsList.html("");
 
