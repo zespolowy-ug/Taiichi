@@ -120,26 +120,107 @@
 
 <!-- The Modal -->
 <div class="modal fade" id="modal-edit-task">
-    <div class="modal-dialog">
+    <div class="modal-dialog"  style="max-width: 70% !important">
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title">Edycja zadania</h4>
+                <h4 class="modal-title">Edycja zadania: <span id="head-task-name-edit" style="font-weight:400"></span></h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="project-name">Nazwa zadania</label>
-                    <input type="text" class="form-control" id="task-name-edit" placeholder="Nazwa">
-                    <label for="project-name">Opis zadania</label>
-                    <textarea type="text" class="form-control" id="task-description-edit" placeholder="Opis"></textarea>
+                  <div class="row">
+                    <div class="col-7">
+                      <div class="form-group">
+                        <label for="project-name">Nazwa zadania</label>
+                        <input type="text" class="form-control" id="task-name-edit" placeholder="Nazwa">
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="exampleSelect2">Przypisany do</label>
+                            <select class="form-control" id="exampleSelect2">
+                              <option>Jacek Godziuk</option>
+                              <option>Michał Tkaczyk</option>
+                              <option>Pablito</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="exampleSelect1">Priorytet</label>
+                            <select class="form-control" id="exampleSelect1">
+                              <option>Natychmiastowy</option>
+                              <option>Wysoki</option>
+                              <option>Normalny</option>
+                              <option>Niski</option>
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+                      <div class="form-group">
+                        <label for="project-name">Opis zadania</label>
+                        <textarea type="text" class="form-control" id="task-description-edit" placeholder="Opis" style="min-height: 200px;"></textarea>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="form-group">
+                            <label for="exampleSelect2">Status</label>
+                            <select class="form-control" id="exampleSelect2">
+                              <option>Zrobione</option>
+                              <option>W trakcie</option>
+                              <option>Analiza</option>
+                              <option>Wprowadzone</option>
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="col-5">
+                      <div class="form-group">
+                        <label for="exampleSelect3">Komentarze</label>
+                        <ul id="comment-list">
+                          <li>
+                            <div class="comment-content">Testowy numer jeden</div>
+                            <div class="comment-user">Jacek Godziuk <span class="comment-date">10.12.2017 14:30</span></div>
+                          </li>
+                          <li>
+                            <div class="comment-content">Testowy numer dwa</div>
+                            <div class="comment-user">Jacek Godziuk <span class="comment-date">10.12.2017 14:30</span></div>
+                          </li>
+                          <li>
+                            <div class="comment-content">Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy.</div>
+                            <div class="comment-user">Michał Tkaczyk <span class="comment-date">10.12.2017 14:30</span></div>
+                          </li>
+                          <li>
+                            <div class="comment-content">Testowy numer jeden</div>
+                            <div class="comment-user">Jacek Godziuk <span class="comment-date">10.12.2017 14:30</span></div>
+                          </li>
+                          <li>
+                            <div class="comment-content">Testowy numer dwa</div>
+                            <div class="comment-user">Jacek Godziuk <span class="comment-date">10.12.2017 14:30</span></div>
+                          </li>
+                          <li>
+                            <div class="comment-content">Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy. Testowy numer trzy dodatkowy.</div>
+                            <div class="comment-user">Michał Tkaczyk <span class="comment-date">10.12.2017 14:30</span></div>
+                          </li>
+                        </ul>
+                      <div class="input-group" style="margin-top:10px;">
+                        <input type="text" class="form-control" placeholder="Napisz komentarz...">
+                        <span class="input-group-btn">
+                          <button class="btn btn-secondary" type="button">Dodaj</button>
+                        </span>
+                      </div>
+                      </div>
+                    </div>
+                  </div>
+
               </div>
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary mr-auto" data-dismiss="modal">Anuluj</button>
-                <button type="button" class="btn btn-primary" data-function="save-task">Zapisz</button>
+                <button type="button" class="btn btn-success" data-function="save-task">Zapisz</button>
             </div>
 
         </div>

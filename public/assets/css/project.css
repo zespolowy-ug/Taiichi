@@ -235,3 +235,32 @@ h1 {
     opacity: 0.8;
     transition: .3s;
 }
+
+#comment-list{
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#comment-list li{
+    border-bottom: 1px solid #e7e7e7;
+    padding-bottom: 5px;
+}
+
+.comment-content{
+    font-size: 12px;
+}
+
+.comment-user{
+    font-size: 10px;
+}
+
+.comment-date{
+    color: #c6c6c6;
+}
+
+.modal-body{
+    background: #fbfbfb;
+}

@@ -1,5 +1,6 @@
 var taskEdit = {};
     taskEdit.$modal = $("#modal-edit-task");
+    taskEdit.$taskNameHeader = taskEdit.$modal.find("#head-task-name-edit");
     taskEdit.$taskName = taskEdit.$modal.find("#task-name-edit");
     taskEdit.$taskDescription = taskEdit.$modal.find("#task-description-edit");
     taskEdit.$saveTaskButton = taskEdit.$modal.find('[data-function="save-task"]');
@@ -20,6 +21,7 @@ var taskEdit = {};
                 taskId : taskId
             },
             success: function(ret) {
+                taskEdit.$taskNameHeader.text(ret.data.name);
                 taskEdit.$taskName.val(ret.data.name);
                 taskEdit.$taskDescription.val(ret.data.description);
                 taskEdit.$modal.modal('show');
