@@ -322,6 +322,26 @@ app.post('/taskData', function(req, res){
     });
 });
 
+app.post('/taskComments', function(req, res){
+    var taskId = req.param("taskId");
+
+    var findComments = function(){
+        return models.taskComment.findAll({
+            where : {
+                "taskTaskId" : parseInt(taskId)
+            }
+        });
+    }
+
+    var commentData = findComments().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
 app.post('/taskEdit', function(req, res){
     var taskId = req.param("taskId");
     var taskName = req.param("taskName");
@@ -339,6 +359,51 @@ app.post('/taskEdit', function(req, res){
     };
 
     var taskData = updateTask().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+
+});
+
+app.post('/changeTaskBoard', function(req, res){
+    var taskId = req.param("taskId");
+    var boardId = req.param("boardId");
+
+    var updateTask = function(){
+        return models.task.find({ where: { task_id: taskId } }).then(taskItem => {
+            taskItem.updateAttributes({
+                boardBoardId: boardId
+            })
+
+              return taskItem;
+        });
+    };
+
+    var taskData = updateTask().then(function(data){
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+
+});
+
+app.post('/addComment', function(req, res){
+    var taskId = req.param("taskId");
+    var content = req.param("content");
+    var creator_user_id = req.param("creator_user_id");
+
+    var createComment = function(){
+        return models.taskComment.create({ content: content, creator_user_id: creator_user_id, taskTaskId: taskId }).then(commentData => {
+              return commentData;
+          });
+    };
+
+    var commentData = createComment().then(function(data){
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({

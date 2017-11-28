@@ -32,7 +32,7 @@ h1 {
 		overflow-x: scroll;
 		overflow-y: hidden;
 		height: calc(100vh - 50px);
-	    background: #809EFF;;
+	  background: #e6e6e6;
 	}
 
 	.scroll-y-container{
@@ -78,7 +78,7 @@ h1 {
 	.card-custom-title{
         position: relative;
 		line-height: 30px;
-	    background: #1F3A93;
+	    background: black;
 		padding-left: 10px;
 		color: white;
 	}
@@ -151,6 +151,11 @@ h1 {
 		cursor: pointer;
 		border-bottom: 1px solid #e2e2e2;
 	}
+
+  .task:hover{
+    background: #f0f0f0;
+  }
+
 	.task:active{
 		background-color: #ffd7d7;
 	}
@@ -214,7 +219,7 @@ h1 {
     height: 30px;
     line-height: 30px;
     padding-left: 10px;
-    background-color: #1F3A93;
+    background-color: black;
     color: #fff;
 }
 
@@ -225,22 +230,22 @@ h1 {
     font-size: 88px;
     font-weight: bold;
     line-height: 0.85;
-    color: #1F3A93;
+    color: #dadada;
     user-select: none;
-    transition: .3s;
+    transition: .2s;
 }
 
 .add-board__plus:hover{
     cursor: pointer;
-    opacity: 0.8;
-    transition: .3s;
+    opacity: 0.6;
+    transition: .2s;
 }
 
 #comment-list{
     margin: 0;
     padding: 0;
     list-style-type: none;
-    max-height: 400px;
+    max-height: 300px;
     overflow-y: auto;
 }
 
@@ -261,6 +266,6 @@ h1 {
     color: #c6c6c6;
 }
 
-.modal-body{
+.modal-content{
     background: #fbfbfb;
 }

@@ -42,11 +42,32 @@ var projectVC = {};
         });
     };
 
+    var oldBoard;
     projectVC.appendBoard = function(boardData){
         var $boardItem = $(projectVC.boardTemplate);
             $boardItem.attr('data-board-id', boardData.board_id);
             $boardItem.find('[data-function="card-title"]').text(boardData.name);
             $boardItem.find(".tasks-list").sortable({
+                start: function(event, ui){
+                    oldBoard = ui.item[0].parentElement.parentElement.parentElement.getAttribute("data-board-id");
+                },
+                stop: function(event, ui){
+                    var currentBoard = ui.item[0].parentElement.parentElement.parentElement.getAttribute("data-board-id");
+                    var task = ui.item[0].getAttribute("data-task-id");
+                    if(oldBoard !== currentBoard){
+                        $.ajax({
+                            type     : "POST",
+                            url      : "/changeTaskBoard",
+                            data     : {
+                                taskId : task,
+                                boardId : currentBoard,
+                            },
+                            error: function(jqXHR, errorText, errorThrown) {
+                              console.log("Error occured at changeTaskBoard()");
+                            }
+                        });
+                    }
+                },
                 connectWith: "ul.tasks-list",
                 dropOnEmpty: true
             });
