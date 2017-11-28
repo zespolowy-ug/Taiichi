@@ -177,7 +177,7 @@ var projectVC = {};
     projectVC.taskTemplate = [
         '<li class="task ui-sortable-handle">',
         '	<h6 data-function="task-name"></h6>',
-        '	<div data-function="task-description"></div>',
+        '	<div data-function="task-description" class="cut-string"></div>',
         '</li>'
     ].join("\n");
 

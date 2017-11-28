@@ -17,6 +17,9 @@ var projectAdd = {};
         $("#color-select-add").val(firstSelected);
 
     };
+    
+    
+
 
     projectAdd.addProject = function(){
         $.ajax({

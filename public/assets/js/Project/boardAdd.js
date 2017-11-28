@@ -11,7 +11,7 @@ var boardAdd = {};
     };
 
     boardAdd.clearData = function(){
-
+        $("#board-name-add").val("");
     };
 
     boardAdd.saveNewBoard = function(){

@@ -159,6 +159,13 @@ h1 {
 	.task:active{
 		background-color: #ffd7d7;
 	}
+        
+.cut-string {
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+}        
 
 .sidebar {
   position: fixed;

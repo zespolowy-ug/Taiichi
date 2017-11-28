@@ -6,7 +6,9 @@ var dashboardVC = {};
 
     dashboardVC.initView = function(){
         dashboardVC.getProjects();
-    }
+       
+    };
+
 
     dashboardVC.getProjects = function(){
         $.ajax({

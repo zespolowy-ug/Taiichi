@@ -15,6 +15,8 @@ var taskAdd = {};
     };
 
     taskAdd.clearData = function(){
+        $("#task-name-add").val("");
+        $("#task-description-add").val("");
 
     };
 
