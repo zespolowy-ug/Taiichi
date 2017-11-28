@@ -1,6 +1,6 @@
 .main-container{
     min-height: 100vh;
-    padding-top: 100px;
+    padding: 75px 10px;
     width: 100%;
     text-align: center;
 }
@@ -8,7 +8,6 @@
 .tables-list{
     display: inline-block;
     width: 100%;
-    max-width: 1280px;
 }
 
 .tables-list__header{
