@@ -2,8 +2,6 @@
 
 module.exports = function(sequelize, Sequelize) {
 
-    console.log("WYWOŁANIE users");
-
     const User = sequelize.define('user', {
 
         user_id: {
@@ -56,7 +54,7 @@ module.exports = function(sequelize, Sequelize) {
 
     User.associate = (models) => {
         User.hasMany(models.users_to_projects);
-        
+
 
     }
 

@@ -1,8 +1,7 @@
 "use strict";
 
 module.exports = function(sequelize, Sequelize) {
-console.log("WYWOŁANIE boards");
-
+  
     const Board = sequelize.define('board', {
 
         board_id: {

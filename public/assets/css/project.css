@@ -159,13 +159,13 @@ h1 {
 	.task:active{
 		background-color: #ffd7d7;
 	}
-        
+
 .cut-string {
         display: block;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-}        
+}
 
 .sidebar {
   position: fixed;
@@ -259,18 +259,30 @@ h1 {
 #comment-list li{
     border-bottom: 1px solid #e7e7e7;
     padding-bottom: 5px;
+    display: inline-block;
+    float: left;
+    width: 100%;
 }
 
 .comment-content{
     font-size: 12px;
+    display: inline-block;
+    float: left;
+    width: 100%;
 }
 
 .comment-user{
     font-size: 10px;
+    display: inline-block;
+    float: left;
 }
 
 .comment-date{
+    font-size: 10px;
+    padding-right: 8px;
     color: #c6c6c6;
+    display: inline-block;
+    float: right;
 }
 
 .modal-content{

@@ -1,9 +1,6 @@
 "use strict";
 
 module.exports = function(sequelize, Sequelize) {
-    console.log("WYWOŁANIE połączenia");
-
-
 
 const userToProject = sequelize.define('users_to_projects', {
   id : {
@@ -13,18 +10,10 @@ const userToProject = sequelize.define('users_to_projects', {
   }
 });
 
-
-
 userToProject.associate = (models) => {
     userToProject.belongsTo(models.project);
     userToProject.belongsTo(models.user);
 }
-
-
-
-
-
-
 
 return userToProject;
 

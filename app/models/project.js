@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = function(sequelize, Sequelize) {
-console.log("WYWOŁANIE projects");
 
     const Project = sequelize.define('project', {
 

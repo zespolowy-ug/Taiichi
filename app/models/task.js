@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = function(sequelize, Sequelize) {
-console.log("WYWOŁANIE tasks");
 
     const Task = sequelize.define('task', {
 
