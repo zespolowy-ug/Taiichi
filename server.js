@@ -1,7 +1,7 @@
-var express=require("express");
+var express = require("express");
 var path = require('path');
-var passport   = require('passport');
-var session    = require('express-session');
+var passport = require('passport');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var env = require('dotenv').load();
 var exphbs = require('express-handlebars');
@@ -17,8 +17,8 @@ app.engine('hbs', exphbs({
     layoutsDir: viewsPath + '/layouts/',
     partialsDir: viewsPath + '/partials/',
     helpers: {
-        section: function(name, options){
-            if(!this._sections) this._sections = {};
+        section: function(name, options) {
+            if (!this._sections) this._sections = {};
             this._sections[name] = options.fn(this);
             return null;
         }
@@ -28,11 +28,17 @@ app.engine('hbs', exphbs({
 app.set('view engine', '.hbs');
 
 //For BodyParser
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 
 // For Passport
-app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+})); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -46,22 +52,22 @@ models.sequelize.sync().then(function() {
     console.log(err, "Something went wrong with the Database Update!");
 });
 
-app.post('/projectsList', function(req, res){
-    var findUser = function(){
+app.post('/projectsList', function(req, res) {
+    var findUser = function() {
         return models.user.findOne({
-            where:{ user_id: req.user.user_id},
-            include: [
-                {
-                    model: models.users_to_projects,
-                    include: [{
-                        model: models.project
-                    }]
-                }
-            ]
+            where: {
+                user_id: req.user.user_id
+            },
+            include: [{
+                model: models.users_to_projects,
+                include: [{
+                    model: models.project
+                }]
+            }]
         });
     }
 
-    var projectsData = findUser().then(function(data){
+    var projectsData = findUser().then(function(data) {
 
         res.setHeader('Content-Type', 'application/json');
 
@@ -72,26 +78,33 @@ app.post('/projectsList', function(req, res){
 
 });
 
-app.post('/projectDetails', function(req, res){
+app.post('/projectDetails', function(req, res) {
     var projectId = req.param("projectId");
 
-    var findProject = function(){
+    var findProject = function() {
         return models.project.findOne({
-            where : {
-            "project_id" : parseInt(projectId)
-        },
-        include: [
-            {
+            where: {
+                "project_id": parseInt(projectId)
+            },
+            include: [{
                 model: models.board,
                 include: [{
                     model: models.task
                 }]
-            }
-        ]
+            },
+            {
+                model: models.users_to_projects,
+                include: [{
+                    model: models.user
+                }]
+            }],
+            order: [
+                [models.board, 'position', 'ASC']
+            ]
         });
     }
 
-    var projectData = findProject().then(function(data){
+    var projectData = findProject().then(function(data) {
 
         res.setHeader('Content-Type', 'application/json');
 
@@ -101,18 +114,18 @@ app.post('/projectDetails', function(req, res){
     });
 });
 
-app.post('/projectData', function(req, res){
+app.post('/projectData', function(req, res) {
     var projectId = req.param("projectId");
 
-    var findProject = function(){
+    var findProject = function() {
         return models.project.findOne({
-            where : {
-                "project_id" : parseInt(projectId)
+            where: {
+                "project_id": parseInt(projectId)
             }
         });
     }
 
-    var projectData = findProject().then(function(data){
+    var projectData = findProject().then(function(data) {
 
         res.setHeader('Content-Type', 'application/json');
 
@@ -122,18 +135,24 @@ app.post('/projectData', function(req, res){
     });
 });
 
-app.post('/projectAdd', function(req, res){
+app.post('/projectAdd', function(req, res) {
     var projectName = req.param("name");
     var projectColor = req.param("color");
 
-    var createProject = function(){
-        return models.project.create({ name: projectName, color: projectColor }).then(projectData => {
-                  models.users_to_projects.create({userUserId : req.user.user_id, projectProjectId : projectData.project_id});
-                  return projectData;
-          });
+    var createProject = function() {
+        return models.project.create({
+            name: projectName,
+            color: projectColor
+        }).then(projectData => {
+            models.users_to_projects.create({
+                userUserId: req.user.user_id,
+                projectProjectId: projectData.project_id
+            });
+            return projectData;
+        });
     };
 
-    var projectData = createProject().then(function(data){
+    var projectData = createProject().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -142,23 +161,27 @@ app.post('/projectAdd', function(req, res){
     });
 });
 
-app.post('/projectEdit', function(req, res){
+app.post('/projectEdit', function(req, res) {
     var projectId = req.param("projectId");
     var projectName = req.param("projectName");
     var projectColor = req.param("projectColor");
 
-    var updateProject = function(){
-        return models.project.find({ where: { project_id: projectId } }).then(projectItem => {
+    var updateProject = function() {
+        return models.project.find({
+            where: {
+                project_id: projectId
+            }
+        }).then(projectItem => {
             projectItem.updateAttributes({
                 name: projectName,
                 color: projectColor
             })
 
-              return projectItem;
+            return projectItem;
         });
     };
 
-    var projectData = updateProject().then(function(data){
+    var projectData = updateProject().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -168,18 +191,18 @@ app.post('/projectEdit', function(req, res){
 
 });
 
-app.post('/projectDelete', function(req, res){
+app.post('/projectDelete', function(req, res) {
     var projectId = req.param("projectId");
 
-    var deleteProject = function(){
+    var deleteProject = function() {
         return models.users_to_projects.destroy({
-            where : {
-                projectProjectId : projectId
+            where: {
+                projectProjectId: projectId
             }
-        }).then(function(data){
+        }).then(function(data) {
             models.project.destroy({
-                where : {
-                    project_id : projectId
+                where: {
+                    project_id: projectId
                 }
             })
 
@@ -187,7 +210,7 @@ app.post('/projectDelete', function(req, res){
         });
     };
 
-    var projectData = deleteProject().then(function(data){
+    var projectData = deleteProject().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -196,17 +219,22 @@ app.post('/projectDelete', function(req, res){
     });
 });
 
-app.post('/boardAdd', function(req, res){
+app.post('/boardAdd', function(req, res) {
     var boardName = req.param("boardName");
     var projectId = req.param("projectId");
+    var position = req.param("position");
 
-    var createBoard = function(){
-        return models.board.create({ name: boardName, projectProjectId: projectId }).then(boardData => {
-                  return boardData;
-          });
+    var createBoard = function() {
+        return models.board.create({
+            name: boardName,
+            projectProjectId: projectId,
+            position: position
+        }).then(boardData => {
+            return boardData;
+        });
     };
 
-    var boardData = createBoard().then(function(data){
+    var boardData = createBoard().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -215,18 +243,18 @@ app.post('/boardAdd', function(req, res){
     });
 });
 
-app.post('/boardData', function(req, res){
+app.post('/boardData', function(req, res) {
     var boardId = req.param("boardId");
 
-    var findBoard = function(){
+    var findBoard = function() {
         return models.board.findOne({
-            where : {
-                "board_id" : parseInt(boardId)
+            where: {
+                "board_id": parseInt(boardId)
             }
         });
     }
 
-    var boardData = findBoard().then(function(data){
+    var boardData = findBoard().then(function(data) {
 
         res.setHeader('Content-Type', 'application/json');
 
@@ -236,21 +264,25 @@ app.post('/boardData', function(req, res){
     });
 });
 
-app.post('/boardEdit', function(req, res){
+app.post('/boardEdit', function(req, res) {
     var boardId = req.param("boardId");
     var boardName = req.param("boardName");
 
-    var updateBoard = function(){
-        return models.board.find({ where: { board_id: boardId } }).then(boardItem => {
+    var updateBoard = function() {
+        return models.board.find({
+            where: {
+                board_id: boardId
+            }
+        }).then(boardItem => {
             boardItem.updateAttributes({
-                name: boardName,
-            })
+                name: boardName
+            });
 
-              return boardItem;
+            return boardItem;
         });
     };
 
-    var boardData = updateBoard().then(function(data){
+    var boardData = updateBoard().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -260,19 +292,19 @@ app.post('/boardEdit', function(req, res){
 
 });
 
-app.post('/boardDelete', function(req, res){
+app.post('/boardDelete', function(req, res) {
     var boardId = req.param("boardId");
 
-    var deleteBoard = function(){
+    var deleteBoard = function() {
         return models.board.destroy({
-            where : {
-                board_id : boardId
+            where: {
+                board_id: boardId
             }
         });
-            return data;
+        return data;
     };
 
-    var projectData = deleteBoard().then(function(data){
+    var projectData = deleteBoard().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -281,19 +313,38 @@ app.post('/boardDelete', function(req, res){
     });
 });
 
-app.post('/taskAdd', function(req, res){
+app.post("/boardSetOrder", function(req, res) {
+    var boardsOrder = req.param("boardsOrder");
+
+    for (var i = 0; i < boardsOrder.length; i++) {
+        var position = boardsOrder[i].boardIndex;
+        models.board.update({
+            position: position
+        }, {
+            where: {
+                board_id: boardsOrder[i].boardId
+            }
+        });
+    }
+});
+
+app.post('/taskAdd', function(req, res) {
     var boardId = req.param("boardId");
     var taskName = req.param("taskName");
     var taskDescription = req.param("taskDescription");
 
 
-    var createTask = function(){
-        return models.task.create({ name: taskName, description: taskDescription, boardBoardId: boardId }).then(taskData => {
-              return taskData;
-          });
+    var createTask = function() {
+        return models.task.create({
+            name: taskName,
+            description: taskDescription,
+            boardBoardId: boardId
+        }).then(taskData => {
+            return taskData;
+        });
     };
 
-    var taskData = createTask().then(function(data){
+    var taskData = createTask().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -302,18 +353,18 @@ app.post('/taskAdd', function(req, res){
     });
 });
 
-app.post('/taskData', function(req, res){
+app.post('/taskData', function(req, res) {
     var taskId = req.param("taskId");
 
-    var findTask = function(){
+    var findTask = function() {
         return models.task.findOne({
-            where : {
-                "task_id" : parseInt(taskId)
+            where: {
+                "task_id": parseInt(taskId)
             }
         });
     }
 
-    var taskData = findTask().then(function(data){
+    var taskData = findTask().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -322,18 +373,18 @@ app.post('/taskData', function(req, res){
     });
 });
 
-app.post('/taskComments', function(req, res){
+app.post('/taskComments', function(req, res) {
     var taskId = req.param("taskId");
 
-    var findComments = function(){
-        return models.taskComment.findAll({
-            where : {
-                "taskTaskId" : parseInt(taskId)
+    var findComments = function() {
+        return models.tasks_comments.findAll({
+            where: {
+                "taskTaskId": parseInt(taskId)
             }
         });
     }
 
-    var commentData = findComments().then(function(data){
+    var commentData = findComments().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -342,23 +393,27 @@ app.post('/taskComments', function(req, res){
     });
 });
 
-app.post('/taskEdit', function(req, res){
+app.post('/taskEdit', function(req, res) {
     var taskId = req.param("taskId");
     var taskName = req.param("taskName");
     var taskDescription = req.param("taskDescription");
 
-    var updateTask = function(){
-        return models.task.find({ where: { task_id: taskId } }).then(taskItem => {
+    var updateTask = function() {
+        return models.task.find({
+            where: {
+                task_id: taskId
+            }
+        }).then(taskItem => {
             taskItem.updateAttributes({
                 name: taskName,
                 description: taskDescription
             })
 
-              return taskItem;
+            return taskItem;
         });
     };
 
-    var taskData = updateTask().then(function(data){
+    var taskData = updateTask().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -368,21 +423,25 @@ app.post('/taskEdit', function(req, res){
 
 });
 
-app.post('/changeTaskBoard', function(req, res){
+app.post('/changeTaskBoard', function(req, res) {
     var taskId = req.param("taskId");
     var boardId = req.param("boardId");
 
-    var updateTask = function(){
-        return models.task.find({ where: { task_id: taskId } }).then(taskItem => {
+    var updateTask = function() {
+        return models.task.find({
+            where: {
+                task_id: taskId
+            }
+        }).then(taskItem => {
             taskItem.updateAttributes({
                 boardBoardId: boardId
             })
 
-              return taskItem;
+            return taskItem;
         });
     };
 
-    var taskData = updateTask().then(function(data){
+    var taskData = updateTask().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -392,18 +451,24 @@ app.post('/changeTaskBoard', function(req, res){
 
 });
 
-app.post('/addComment', function(req, res){
+app.post('/addTaskComment', function(req, res) {
     var taskId = req.param("taskId");
     var content = req.param("content");
-    var creator_user_id = req.param("creator_user_id");
+    console.log(req.user);
 
-    var createComment = function(){
-        return models.taskComment.create({ content: content, creator_user_id: creator_user_id, taskTaskId: taskId }).then(commentData => {
-              return commentData;
-          });
+    var createComment = function() {
+        return models.tasks_comments.create({
+            content: content,
+            taskTaskId: taskId,
+            creator_id : req.user.user_id,
+            creator_firstname : req.user.firstname,
+            creator_lastname : req.user.lastname
+        }).then(commentData => {
+            return commentData;
+        });
     };
 
-    var commentData = createComment().then(function(data){
+    var commentData = createComment().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -413,7 +478,7 @@ app.post('/addComment', function(req, res){
 
 });
 
-var authRoute = require('./app/routes/auth.js')(app,passport);
+var authRoute = require('./app/routes/auth.js')(app, passport);
 
 //load passport strategies
 require('./app/config/passport/passport.js')(passport, models.user);

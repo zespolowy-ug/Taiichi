@@ -32,8 +32,14 @@ h1 {
 		overflow-x: scroll;
 		overflow-y: hidden;
 		height: calc(100vh - 50px);
-	  background: #e6e6e6;
+	    background: #e6e6e6;
+        transition: .3s;
 	}
+
+    .main-container--collapsed{
+        right: 300px;
+        transition: .3s;
+    }
 
 	.scroll-y-container{
 		padding: 5px;
@@ -287,4 +293,76 @@ h1 {
 
 .modal-content{
     background: #fbfbfb;
+}
+
+.button-settings{
+    position: fixed;
+    right: 10px;
+    bottom: 24px;
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px #333 solid;
+    text-align: center;
+    transition: .3s;
+}
+
+.button-settings:hover{
+    background-color: #333;
+    color: #fff;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.button-settings--selected{
+    background-color: #333;
+    color: #fff;
+    transition: .3s;
+    right: 310px;
+}
+
+.button-settings__filter-icon{
+    font-size: 25px;
+    line-height: 40px;
+}
+
+.settings-tab{
+    width: 0px;
+    position: fixed;
+    overflow: hidden;
+    right: 0;
+    top: 58px;
+    bottom: 0;
+    border-left: 1px #333 solid;
+    transition: .3s;
+    background-color: #fff;
+}
+
+.settings-tab--expanded{
+    width: 300px;
+    transition: .3s;
+}
+
+.settings-tab__container{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.settings-tab__header{
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.user-item{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px #333 solid;
+    line-height: 28px;
+    text-align: center;
+    font-size: 15px;
+    margin: 2px;
 }

@@ -2,15 +2,58 @@ var projectVC = {};
     projectVC.$projectIdInput = $('[data-function="projectId"]');
     projectVC.$boardsList = $(".main-container").find(".scroll-y-container");
     projectVC.$confirmDeleteModal = $("#modal-confirm-delete");
+    projectVC.$projectsSettingsButton = $(".button-settings");
+    projectVC.$projectsSettingsContainer = $(".settings-tab");
+    projectVC.$projectsUsersList = $('[data-function="project-users-list"]');
 
     projectVC.initView = function() {
         $(".scroll-y-container").sortable({
             handle: ".card-custom-title",
-            axis: "x"
+            axis: "x",
+            stop: function(event, ui){
+                var cardsOrder = [];
+
+                $(".card-custom.sortable").each(function(index, $cardItem){
+                    cardsOrder.push({
+                        boardId : $($cardItem).attr('data-board-id'),
+                        boardIndex : index
+                    });
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/boardSetOrder",
+                    data: {
+                        boardsOrder : cardsOrder
+                    },
+                    success: function(ret) {
+
+                    },
+                    error: function(jqXHR, errorText, errorThrown) {
+                        console.log("Error occured at boardSetOrder()");
+                    }
+                });
+            }
         });
 
 
         projectVC.getProjectDetails();
+        projectVC.$projectsSettingsButton.off('click').click(projectVC.toggleSettingsView);
+    };
+
+    projectVC.toggleSettingsView = function(){
+        var clickedButton = $(this);
+
+        if(clickedButton.hasClass("button-settings--selected")){
+            clickedButton.removeClass("button-settings--selected");
+            $(".settings-tab").removeClass("settings-tab--expanded");
+            $(".main-container").removeClass("main-container--collapsed");
+        }
+        else{
+            clickedButton.addClass("button-settings--selected");
+            $(".settings-tab").addClass("settings-tab--expanded");
+            $(".main-container").addClass("main-container--collapsed");
+        }
     };
 
     projectVC.getProjectDetails = function() {
@@ -22,11 +65,26 @@ var projectVC = {};
             },
             success: function(ret) {
                 projectVC.appendBoards(ret.data.boards);
+                projectVC.appendUsers(ret.data.users_to_projects);
             },
             error: function(jqXHR, errorText, errorThrown) {
                 console.log("Error occured at projectDetails()");
             }
         });
+    };
+
+    projectVC.appendUsers = function(usersToProjects){
+        projectVC.$projectsUsersList.html("");
+
+        $.each(usersToProjects, function(index, userToProject){
+            projectVC.appendUser(userToProject.user);
+        });
+    };
+
+    projectVC.appendUser = function(userToProject){
+        var $userItem = $(projectVC.userTemplate);
+            $userItem.text(userToProject.firstname.trim().substring(0,1).toUpperCase() + userToProject.lastname.trim().substring(0,1).toUpperCase());
+        projectVC.$projectsUsersList.append($userItem);
     };
 
     projectVC.appendBoards = function(boardsData) {
@@ -186,6 +244,11 @@ var projectVC = {};
         '   <div class="custom-dropdown__item" data-function="board-edit">Edytuj</div>',
         '   <div class="custom-dropdown__item" data-function="board-delete">Usuń</div>',
         '</div>',
+    ].join("\n");
+
+    projectVC.userTemplate = [
+        '<div class="user-item">',
+        '</div>'
     ].join("\n");
 
     projectVC.initView();

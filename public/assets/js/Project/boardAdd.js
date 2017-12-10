@@ -22,7 +22,8 @@ var boardAdd = {};
             url: "/boardAdd",
             data: {
                 boardName: boardName,
-                projectId : projectVC.$projectIdInput.val()
+                projectId : projectVC.$projectIdInput.val(),
+                position : $(".card-custom.sortable").length
             },
             success: function(ret){
                 projectVC.appendBoard(ret.data);

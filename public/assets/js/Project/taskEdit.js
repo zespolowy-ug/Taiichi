@@ -60,15 +60,13 @@ var taskEdit = {};
     taskEdit.addComment = function(taskId) {
         $.ajax({
             type: "POST",
-            url: "/addComment",
+            url: "/addTaskComment",
             data: {
                 taskId: taskId,
-                content: taskEdit.$newComment.val(),
-                creator_user_id: "1"
+                content: taskEdit.$newComment.val()
             },
             success: function(ret) {
                 taskEdit.$newComment.val("");
-                // taskEdit.loadComments(taskId);
                 taskEdit.appendComment(ret.data);
             },
             error: function(jqXHR, errorText, errorThrown) {
@@ -105,7 +103,7 @@ var taskEdit = {};
     taskEdit.appendComment = function(commentData) {
         var $commentItem = $(taskEdit.commentTpl);
             $commentItem.find(".comment-content").text(commentData.content);
-            $commentItem.find(".comment-user").text(commentData.creator_user_id);
+            $commentItem.find(".comment-user").text(commentData.creator_firstname + " " + commentData.creator_lastname);
             $commentItem.find(".comment-date").text(moment(commentData.createdAt).locale("pl").local().calendar());
 
         taskEdit.$commentList.prepend($commentItem);

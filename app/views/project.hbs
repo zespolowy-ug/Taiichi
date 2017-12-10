@@ -6,16 +6,28 @@
 <input data-function="projectId" value="{{projectId}}" style="display: none;">
 
 <div class="container-fluid">
-  <div class="row">
-    <main class="">
-		<div class="main-container">
-			<div class="scroll-y-container">
+    <div class="row">
+        <main class="">
+            <div class="main-container">
+                <div class="scroll-y-container">
 
 
-			</div>
-		</div>
-    </main>
-  </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="button-settings">
+    <div class="fa fa-filter button-settings__filter-icon"></div>
+</div>
+
+<div class="settings-tab">
+    <div class="settings-tab__container">
+        <div class="settings-tab__header">Użytkownicy</div>
+        <div class="settings-tab__users" data-function="project-users-list"></div>
+        <div class="settings-tab__header">Dodaj użytkownika</div>
+    </div>
 </div>
 
 <!-- The Modal -->
@@ -32,7 +44,7 @@
                 <div class="form-group">
                     <label for="project-name">Nazwa tablicy</label>
                     <input type="text" class="form-control" id="board-name-add" placeholder="Nazwa tablicy">
-              </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -58,7 +70,7 @@
                 <div class="form-group">
                     <label for="project-name">Nazwa tablicy</label>
                     <input type="text" class="form-control" id="board-name-edit" placeholder="Nazwa tablicy">
-              </div>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -105,8 +117,8 @@
                     <label for="project-name">Nazwa zadania</label>
                     <input type="text" class="form-control" id="task-name-add" placeholder="Nazwa">
                     <label for="project-name">Opis zadania</label>
-                    <textarea type="text" class="form-control" id="task-description-add" placeholder="Opis"></textarea>
-              </div>
+                    <textarea type="text" class="form-control resize-none h-100" id="task-description-add" placeholder="Opis"></textarea>
+                </div>
             </div>
 
             <div class="modal-footer">
@@ -120,7 +132,7 @@
 
 <!-- The Modal -->
 <div class="modal fade" id="modal-edit-task">
-    <div class="modal-dialog"  style="max-width: 70% !important">
+    <div class="modal-dialog" style="max-width: 70% !important">
         <div class="modal-content">
 
             <div class="modal-header">
@@ -129,70 +141,71 @@
             </div>
 
             <div class="modal-body">
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-7">
-                      <div class="form-group">
-                        <label for="project-name">Nazwa zadania</label>
-                        <input type="text" class="form-control" id="task-name-edit" placeholder="Nazwa">
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-group">
-                            <label for="exampleSelect2">Przypisany do</label>
-                            <select class="form-control" id="exampleSelect2">
-                              <option>Jacek Godziuk</option>
-                              <option>Michał Tkaczyk</option>
-                              <option>Pablito</option>
-                            </select>
-                          </div>
-                        </div>
-                        <div class="col">
-                          <div class="form-group">
-                            <label for="exampleSelect1">Priorytet</label>
-                            <select class="form-control" id="exampleSelect1">
-                              <option>Natychmiastowy</option>
-                              <option>Wysoki</option>
-                              <option>Normalny</option>
-                              <option>Niski</option>
-                            </select>
-                          </div>
-                        </div>
-                    </div>
-                      <div class="form-group">
-                        <label for="project-name">Opis zadania</label>
-                        <textarea type="text" class="form-control" id="task-description-edit" placeholder="Opis" style="min-height: 100px;"></textarea>
-                      </div>
-                      <div class="row">
-                        <div class="col">
-                          <div class="form-group">
-                            <label for="exampleSelect2">Status</label>
-                            <select class="form-control" id="exampleSelect2">
-                              <option>Zrobione</option>
-                              <option>W trakcie</option>
-                              <option>Analiza</option>
-                              <option>Wprowadzone</option>
-                            </select>
-                          </div>
-                        </div>
-                    </div>
-                    </div>
-                    <div class="col-5">
-                      <div class="form-group">
-                        <label for="exampleSelect3">Komentarze</label>
-                        <ul id="comment-list">
-                        </ul>
-                      <div class="input-group" style="margin-top:10px;">
-                        <input type="text" class="form-control" id="task-comment-content" placeholder="Napisz komentarz...">
-                        <span class="input-group-btn">
-                          <button id="task-comment-add" class="btn btn-secondary" type="button">Dodaj</button>
-                        </span>
-                      </div>
-                      </div>
-                    </div>
-                  </div>
 
-              </div>
+                <ul class="nav nav-tabs mb-10" role="tablist">
+                    <li class="nav-item"><a class="nav-link active" href="#details-tab-edit" role="tab" data-toggle="tab">Szczegóły</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#files-tab-edit" role="tab" data-toggle="tab">Pliki</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active show" id="details-tab-edit">
+                        <div class="row">
+                            <div class="col-7">
+                                <div class="form-group">
+                                    <label for="project-name">Nazwa zadania</label>
+                                    <input type="text" class="form-control" id="task-name-edit" placeholder="Nazwa">
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleSelect2">Przypisany do</label>
+                                            <select class="form-control" id="exampleSelect2">
+                                      <option>Jacek Godziuk</option>
+                                      <option>Michał Tkaczyk</option>
+                                      <option>Pablito</option>
+                                    </select>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="exampleSelect1">Priorytet</label>
+                                            <select class="form-control" id="exampleSelect1">
+                                      <option>Natychmiastowy</option>
+                                      <option>Wysoki</option>
+                                      <option>Normalny</option>
+                                      <option>Niski</option>
+                                    </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="project-name">Opis zadania</label>
+                                    <textarea type="text" class="form-control resize-none" id="task-description-edit" placeholder="Opis" style="min-height: 100px;"></textarea>
+                                </div>
+
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label for="exampleSelect3">Komentarze</label>
+                                    <ul id="comment-list">
+                                    </ul>
+                                    <div class="input-group" style="margin-top:10px;">
+                                        <input type="text" class="form-control" id="task-comment-content" placeholder="Napisz komentarz...">
+                                        <span class="input-group-btn">
+                                  <button id="task-comment-add" class="btn btn-secondary" type="button">Dodaj</button>
+                                </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div role="tabpanel" class="tab-pane fade in" id="files-tab-edit">
+                        b
+                    </div>
+                </div>
+
+            </div>
+            <div class="form-group">
             </div>
 
             <div class="modal-footer">

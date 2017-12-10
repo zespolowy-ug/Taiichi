@@ -47,7 +47,7 @@ module.exports = function(sequelize, Sequelize) {
     });
 
     Task.associate = (models) => {
-        Task.hasMany(models.taskComment);
+        Task.hasMany(models.tasks_comments);
         Task.belongsTo(models.board);
     }
 

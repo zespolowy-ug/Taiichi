@@ -2,7 +2,7 @@
 
 module.exports = function(sequelize, Sequelize) {
 
-    const TaskComment = sequelize.define('taskComment', {
+    const TaskComment = sequelize.define('tasks_comments', {
 
         comment_id: {
             autoIncrement: true,
@@ -15,10 +15,21 @@ module.exports = function(sequelize, Sequelize) {
             notEmpty: true
         },
 
-        creator_user_id: {
+        creator_id: {
             type: Sequelize.INTEGER,
             notEmpty: true
+        },
+
+        creator_firstname: {
+            type: Sequelize.STRING,
+            notEmpty: true
+        },
+
+        creator_lastname: {
+            type: Sequelize.STRING,
+            notEmpty: true
         }
+
 
     });
 
