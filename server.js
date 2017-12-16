@@ -225,6 +225,67 @@ app.post('/projectDelete', function(req, res) {
     });
 });
 
+app.post('/findUserToInvite', function(req, res) {
+    var searchInput = req.body.searchInput;
+
+    var findUsers = function(){
+        return models.user.findAll({
+            attributes: ['user_id', 'firstname', 'lastname', 'email'],
+            where: {
+                [models.Sequelize.Op.or]: [
+                    {
+                        firstname: {
+                            [models.Sequelize.Op.like]: '%' + searchInput + '%'
+                        }
+                    },
+                    {
+                        lastname: {
+                            [models.Sequelize.Op.like]: '%' + searchInput + '%'
+                        }
+                    }
+                ]
+            }
+        });
+    };
+
+
+    var usersData = findUsers().then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+app.post('/addUserToProject', function(req, res) {
+    var projectId = req.body.projectId;
+    var userId = req.body.userId;
+
+    var assignUser = function() {
+        return models.users_to_projects.create({
+            projectProjectId: projectId,
+            userUserId: userId
+        }).then(userToProjectData => {
+
+            return models.user.findOne({
+                where: {
+                    "user_id": parseInt(userId)
+                }
+            });
+        });
+    };
+
+    var userData = assignUser().then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+
 app.post('/boardAdd', function(req, res) {
     var boardName = req.param("boardName");
     var projectId = req.param("projectId");

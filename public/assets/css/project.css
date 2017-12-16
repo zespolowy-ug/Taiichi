@@ -357,7 +357,15 @@ h1 {
 
 }
 
+.settings-tab__users{
+    width: 100%;
+    min-height: 30px;
+    min-width: 100px;
+}
+
 .user-item{
+    display: inline-block;
+    float: left;
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -365,10 +373,18 @@ h1 {
     line-height: 28px;
     text-align: center;
     font-size: 15px;
-    margin: 2px;
+    margin: 4px;
 
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    transition: .3s;
+
+}
+
+.user-item:hover{
+    transition: .3s;
+    color: #fff;
+    background-color: #333;
 }

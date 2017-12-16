@@ -8,9 +8,11 @@ var projectVC = {};
 
     projectVC.socket = null;
     projectVC.userData = null;
+    projectVC.projectUsersList = [];
 
 
     projectVC.initView = function() {
+        projectVC.projectUsersList = [];
         $(".scroll-y-container").sortable({
             handle: ".card-custom-title",
             axis: "x",
@@ -43,10 +45,105 @@ var projectVC = {};
 
         projectVC.initSockets();
 
+        projectVC.initInvitations();
+
         projectVC.getUserData();
         projectVC.getProjectDetails();
         projectVC.$projectsSettingsButton.off('click').click(projectVC.toggleSettingsView);
     };
+
+    projectVC.initInvitations = function(){
+        var typingTimer;
+
+        $('[data-function="user-invite-input"]').off('keyup').on('keyup', function () {
+            $(".custom-dropdown").remove();
+            clearTimeout(typingTimer);
+            typingTimer = setTimeout(projectVC.findUser, 1000);
+        });
+
+        $('[data-function="user-invite-input"]').off('keydown').on('keydown', function () {
+            clearTimeout(typingTimer);
+        });
+    };
+
+    projectVC.findUser = function(){
+        if(!$('[data-function="user-invite-input"]').val()){
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "/findUserToInvite",
+            data: {
+                searchInput : $('[data-function="user-invite-input"]').val()
+            },
+            success: function(ret) {
+                projectVC.showUsersToInvite(ret.data);
+            },
+            error: function(jqXHR, errorText, errorThrown) {
+                console.log("Error occured at findUserToInvite()");
+            }
+        });
+    };
+
+    projectVC.showUsersToInvite = function(usersData){
+        var $dropdown = $('<div class="custom-dropdown w-200"></div>');
+        var $dropdownItem;
+        if(usersData.length === 0){
+            $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--notfound">Nie znaleziono użytkownika</div>');
+            $dropdown.append($dropdownItem);
+        }
+        else{
+            $.each(usersData, function(index, user){
+                $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--user"></div>');
+                $dropdownItem.text(user.firstname.trim() + " " + user.lastname.trim());
+                $dropdownItem.attr('data-user-id', user.user_id);
+                $dropdownItem.off('click').on('click', projectVC.onUserAddClick);
+
+                $dropdown.append($dropdownItem);
+            });
+        }
+
+        $dropdown.css({
+            left: $('[data-function="user-invite-input"]').offset().left,
+            top: $('[data-function="user-invite-input"]').offset().top + 36
+        });
+
+        $(document).off('click.customDropdown').on('click.customDropdown',function(event) {
+            if(!$(event.target).closest('.custom-dropdown').length) {
+                if($('.custom-dropdown').is(":visible")) {
+                    $('.custom-dropdown').remove();
+                    $(document).off('click.customDropdown');
+                }
+            }
+        });
+
+        $("body").append($dropdown);
+    };
+
+    projectVC.onUserAddClick = function(){
+        var clickedElement = $(this);
+        var userId = clickedElement.attr('data-user-id');
+
+        $.ajax({
+            type: "POST",
+            url: "/addUserToProject",
+            data: {
+                projectId: projectVC.$projectIdInput.val(),
+                userId: userId
+            },
+            success: function(ret) {
+                projectVC.appendUser(ret.data);
+                $(".custom-dropdown").remove();
+                $('[data-function="user-invite-input"]').val("");
+            },
+            error: function(jqXHR, errorText, errorThrown) {
+                console.log("Error occured at projectDetails()");
+            }
+        });
+
+    };
+
 
     projectVC.getUserData = function(){
         $.getJSON("/getUserData", function(data) {
@@ -109,12 +206,17 @@ var projectVC = {};
 
         $.each(usersToProjects, function(index, userToProject){
             projectVC.appendUser(userToProject.user);
+            projectVC.projectUsersList.push(userToProject.user);
         });
     };
 
     projectVC.appendUser = function(userToProject){
         var $userItem = $(projectVC.userTemplate);
             $userItem.text(userToProject.firstname.trim().substring(0,1).toUpperCase() + userToProject.lastname.trim().substring(0,1).toUpperCase());
+            $userItem.tooltip({
+                placement: "bottom",
+                title: userToProject.firstname.trim() + " " + userToProject.lastname.trim()
+            })
         projectVC.$projectsUsersList.append($userItem);
     };
 

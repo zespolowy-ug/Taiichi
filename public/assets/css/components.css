@@ -21,12 +21,36 @@
     height: 24px;
     padding: 0 10px;
     transition: .3s;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .custom-dropdown__item:hover{
     cursor: pointer;
     background-color: #efefef;
 }
+
+
+.custom-dropdown__item--user{
+    height: 36px;
+    line-height: 36px;
+}
+
+.custom-dropdown__item--notfound{
+    height: 36px;
+    line-height: 36px;
+
+}
+
+.custom-dropdown__item--notfound:hover{
+    height: 36px;
+    line-height: 36px;
+    color: #999;
+    font-weight: bold;
+    background-color: #efefef;
+}
+
 
 .nomargin{
     margin: 0 !important;
