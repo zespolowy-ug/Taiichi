@@ -20,11 +20,6 @@ module.exports = function(sequelize, Sequelize) {
             notEmpty: true
         },
 
-        responsible_user_id: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
-
         creator_user_id: {
             type: Sequelize.INTEGER,
             notEmpty: true

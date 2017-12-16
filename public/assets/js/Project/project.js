@@ -6,6 +6,10 @@ var projectVC = {};
     projectVC.$projectsSettingsContainer = $(".settings-tab");
     projectVC.$projectsUsersList = $('[data-function="project-users-list"]');
 
+    projectVC.socket = null;
+    projectVC.userData = null;
+
+
     projectVC.initView = function() {
         $(".scroll-y-container").sortable({
             handle: ".card-custom-title",
@@ -24,7 +28,8 @@ var projectVC = {};
                     type: "POST",
                     url: "/boardSetOrder",
                     data: {
-                        boardsOrder : cardsOrder
+                        boardsOrder : cardsOrder,
+                        projectId : projectVC.$projectIdInput.val()
                     },
                     success: function(ret) {
 
@@ -36,9 +41,35 @@ var projectVC = {};
             }
         });
 
+        projectVC.initSockets();
 
+        projectVC.getUserData();
         projectVC.getProjectDetails();
         projectVC.$projectsSettingsButton.off('click').click(projectVC.toggleSettingsView);
+    };
+
+    projectVC.getUserData = function(){
+        $.getJSON("/getUserData", function(data) {
+            projectVC.userData = data;
+            $('#userDropdown').text(data.email);
+        });
+    }
+
+    projectVC.initSockets = function(){
+        var socket = projectVC.socket = io();
+
+        socket.on('orderChanged', function(message){
+            if(message.userId !== projectVC.userData.user_id && projectVC.$projectIdInput.val() === message.projectId){
+                var $wrapper = $(".main-container .scroll-y-container");
+
+                var elements = [];
+                $.each(message.boardsOrder, function(i, boardObject) {
+                    elements.push($wrapper.find('.card-custom.sortable[data-board-id="'+ boardObject.boardId +'"]')[0]);
+                });
+                $wrapper.prepend(elements);
+            }
+        });
+
     };
 
     projectVC.toggleSettingsView = function(){

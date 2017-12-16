@@ -348,12 +348,13 @@ h1 {
     width: 100%;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 15px;
+    padding: 15px 30px;
 }
 
 .settings-tab__header{
     width: 100%;
-    margin-bottom: 5px;
+    margin: 10px 0;
+
 }
 
 .user-item{
@@ -365,4 +366,9 @@ h1 {
     text-align: center;
     font-size: 15px;
     margin: 2px;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

@@ -6,6 +6,8 @@ var bodyParser = require('body-parser');
 var env = require('dotenv').load();
 var exphbs = require('express-handlebars');
 var app = express();
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
 var viewsPath = path.join(__dirname, 'app', 'views');
 //For Handlebars
@@ -24,6 +26,10 @@ app.engine('hbs', exphbs({
         }
     }
 }));
+
+io.on('connection', function(socket){
+    console.log("user connected!");
+});
 
 app.set('view engine', '.hbs');
 
@@ -314,7 +320,9 @@ app.post('/boardDelete', function(req, res) {
 });
 
 app.post("/boardSetOrder", function(req, res) {
-    var boardsOrder = req.param("boardsOrder");
+    var userId = req.user.user_id;
+    var boardsOrder = req.body.boardsOrder;
+    var projectId = req.body.projectId;
 
     for (var i = 0; i < boardsOrder.length; i++) {
         var position = boardsOrder[i].boardIndex;
@@ -326,6 +334,12 @@ app.post("/boardSetOrder", function(req, res) {
             }
         });
     }
+
+    io.emit("orderChanged", {
+        boardsOrder: boardsOrder,
+        userId: userId,
+        projectId: projectId
+    });
 });
 
 app.post('/taskAdd', function(req, res) {
@@ -478,6 +492,19 @@ app.post('/addTaskComment', function(req, res) {
 
 });
 
+app.get('/getUserData', function(req, res) {
+    if (req.user === undefined) {
+        res.json({});
+    } else {
+        res.json({
+            user_id: req.user.user_id,
+            firstname: req.user.firstname,
+            lastname: req.user.lastname,
+            email: req.user.email
+        });
+    }
+});
+
 var authRoute = require('./app/routes/auth.js')(app, passport);
 
 //load passport strategies
@@ -487,7 +514,7 @@ require('./app/config/passport/passport.js')(passport, models.user);
 app.use("/public", express.static(path.join(__dirname, 'public')));
 
 //Middleware
-app.listen(5000, function(err) {
+http.listen(5000, function(err) {
     if (!err)
         console.log("Site is live");
     else console.log(err)

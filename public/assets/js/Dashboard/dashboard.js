@@ -6,7 +6,6 @@ var dashboardVC = {};
 
     dashboardVC.initView = function(){
         dashboardVC.getProjects();
-       
     };
 
 
