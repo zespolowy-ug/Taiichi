@@ -358,7 +358,15 @@ h1 {
     font-size: 25px;
     line-height: 40px;
 }
-
+@keyframes example {
+    from {background-color: #ff9393;}
+    to {background-color: white;}
+}
+.button-notifications--effect{
+    animation-name: example;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
 .button-notifications{
     position: fixed;
     right: 10px;

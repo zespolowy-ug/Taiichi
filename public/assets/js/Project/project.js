@@ -191,6 +191,10 @@ var projectVC = {};
         });
 
         socket.on('newNotification', function(message){
+              var notificationsButton = $('.button-notifications');
+              if(!notificationsButton.hasClass("button-notifications--effect")){
+                  notificationsButton.addClass("button-notifications--effect");
+              }
               $(".notifications-tab__container").prepend('<div style="padding:5px;display:inline-block;border-bottom:1px solid #e7e7e7;width:100%;font-size:12px;"><div style="font-size:11px;color: #d6d6d6;">'+moment(message.updatedAt).locale("pl").local().calendar()+'</div>'+message.notification.content+'</div>');
         });
     };
@@ -207,6 +211,9 @@ var projectVC = {};
             clickedButton.addClass("button-notifications--selected");
             $(".notifications-tab").addClass("notifications-tab--expanded");
             $(".main-container").addClass("main-container--collapsed");
+        }
+        if(clickedButton.hasClass("button-notifications--effect")){
+            clickedButton.removeClass("button-notifications--effect");
         }
     };
 
