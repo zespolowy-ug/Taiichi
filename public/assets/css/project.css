@@ -419,6 +419,30 @@ h1 {
 
 }
 
+.notifications-tab{
+    width: 0px;
+    position: fixed;
+    overflow: hidden;
+    right: 0;
+    top: 58px;
+    bottom: 0;
+    transition: .3s;
+    background-color: #fff;
+}
+
+.notifications-tab--expanded{
+    width: 300px;
+    transition: .3s;
+}
+
+.notifications-tab__container{
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: 15px 15px;
+}
+
 .chat-tab{
     width: 0px;
     position: fixed;

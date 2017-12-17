@@ -2,6 +2,7 @@ var projectVC = {};
     projectVC.$projectIdInput = $('[data-function="projectId"]');
     projectVC.$boardsList = $(".main-container").find(".scroll-y-container");
     projectVC.$confirmDeleteModal = $("#modal-confirm-delete");
+    projectVC.$projectsNotificationsButton = $(".button-notifications");
     projectVC.$projectsSettingsButton = $(".button-settings");
     projectVC.$projectsChatButton = $(".button-chat");
     projectVC.$projectsSettingsContainer = $(".settings-tab");
@@ -48,6 +49,7 @@ var projectVC = {};
         projectVC.getUserData();
         projectVC.getProjectDetails();
 
+        projectVC.$projectsNotificationsButton.off('click').click(projectVC.toggleNotificationsView);
         projectVC.$projectsSettingsButton.off('click').click(projectVC.toggleSettingsView);
         projectVC.$projectsChatButton.off('click').click(projectVC.toggleChatView);
         projectVC.$chatSendButton.off('click').click(projectVC.sendMessage);
@@ -157,6 +159,7 @@ var projectVC = {};
             projectVC.userData = data;
             $('#userDropdown').text(data.firstname + ' ' + data.lastname);
             projectVC.loadChat(projectVC.$projectIdInput.val(),projectVC.userData.user_id);
+            projectVC.loadNotifications(projectVC.$projectIdInput.val(),projectVC.userData.user_id);
         });
     }
 
@@ -187,6 +190,24 @@ var projectVC = {};
           }
         });
 
+        socket.on('newNotification', function(message){
+              $(".notifications-tab__container").prepend('<div style="padding:5px;display:inline-block;border-bottom:1px solid #e7e7e7;width:100%;font-size:12px;"><div style="font-size:11px;color: #d6d6d6;">'+moment(message.updatedAt).locale("pl").local().calendar()+'</div>'+message.notification.content+'</div>');
+        });
+    };
+
+    projectVC.toggleNotificationsView = function(){
+        var clickedButton = $(this);
+
+        if(clickedButton.hasClass("button-notifications--selected")){
+            clickedButton.removeClass("button-notifications--selected");
+            $(".notifications-tab").removeClass("notifications-tab--expanded");
+            $(".main-container").removeClass("main-container--collapsed");
+        }
+        else{
+            clickedButton.addClass("button-notifications--selected");
+            $(".notifications-tab").addClass("notifications-tab--expanded");
+            $(".main-container").addClass("main-container--collapsed");
+        }
     };
 
     projectVC.toggleSettingsView = function(){
@@ -247,7 +268,6 @@ var projectVC = {};
                 project_id: project_id
             },
             success: function(ret) {
-                console.log(ret);
                     taskEdit.$commentList.text("");
                     $.each(ret.data, function(index, message) {
                         if(message.user_id === projectVC.userData.user_id){
@@ -255,6 +275,25 @@ var projectVC = {};
                         }else{
                             $('.chat-tab__messages').prepend('<div class="chat-message"><div class="chat-message-content">'+message.message+'</div><br><span class="chat-message-user">'+message.firstname+' '+message.lastname+'<span class="chat-message-date">'+moment(message.updatedAt).locale("pl").local().calendar()+'</span></span></div>');
                         }
+                    });
+            },
+            error: function(jqXHR, errorText, errorThrown) {
+                console.log("Error occured at projectDetails()");
+            }
+        });
+    };
+
+    projectVC.loadNotifications = function(project_id, user_id){
+        $.ajax({
+            type: "POST",
+            url: "/loadNotifications",
+            data: {
+                project_id: project_id
+            },
+            success: function(ret) {
+                    $(".notifications-tab__container").html("");
+                    $.each(ret.data, function(index, message) {
+                        $(".notifications-tab__container").prepend('<div style="padding:5px;display:inline-block;border-bottom:1px solid #e7e7e7;width:100%;font-size:12px;"><div style="font-size:11px;color: #d6d6d6;">'+moment(message.updatedAt).locale("pl").local().calendar()+'</div>'+message.content+'</div>');
                     });
             },
             error: function(jqXHR, errorText, errorThrown) {

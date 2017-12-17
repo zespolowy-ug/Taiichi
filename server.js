@@ -267,10 +267,6 @@ app.post('/findUserToInvite', function(req, res) {
              projectProjectId: projectId,
              userUserId: userId
          }).then(userToProjectData => {
-             io.emit("notification-addedToProject", {
-                 userId: userId,
-                 projectId: projectId
-             });
              return models.user.findOne({
                  where: {
                      "user_id": parseInt(userId)
@@ -280,6 +276,15 @@ app.post('/findUserToInvite', function(req, res) {
      };
 
      var userData = assignUser().then(function(data) {
+         models.notifications.create({
+             content: data.firstname + ' ' + data.lastname + " dołączył/a projektu",
+             project_id: projectId
+         }).then(notif => {
+             io.emit("newNotification", {
+                 notification: notif
+             });
+         });
+
          res.setHeader('Content-Type', 'application/json');
 
          res.send(JSON.stringify({
@@ -559,7 +564,6 @@ app.post('/sendMessage', function(req, res) {
     var projectId = req.param("projectId");
     var message = req.param("message");
     var user = req.user;
-    console.log("SEND MESSAGE:"+message  +" to project: "+projectId);
 
     var sendMessage = function() {
         return models.chat_messages.create({
@@ -594,6 +598,25 @@ app.post('/loadChat', function(req, res) {
     }
 
     var commentData = loadMesseges().then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+app.post('/loadNotifications', function(req, res) {
+    var project_id = req.param("project_id");
+
+    var loadNotifications = function() {
+        return models.notifications.findAll({
+            where: {
+                "project_id": parseInt(project_id)
+            }
+        });
+    }
+
+    var commentData = loadNotifications().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
             data: data || null
