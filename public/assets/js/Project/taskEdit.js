@@ -7,6 +7,9 @@ var taskEdit = {};
     taskEdit.$newComment = taskEdit.$modal.find("#task-comment-content");
     taskEdit.$addCommentButton = taskEdit.$modal.find("#task-comment-add");
     taskEdit.$saveTaskButton = taskEdit.$modal.find('[data-function="save-task"]');
+    taskEdit.$taskFileInput = taskEdit.$modal.find('#task-edit-fileInput');
+    taskEdit.$taskFilesList = [];
+    taskEdit.$taskFilesTable = taskEdit.$modal.find('#task-edit-filesTable');
 
     taskEdit.initView = function(taskId) {
         taskEdit.loadData(taskId);
@@ -16,6 +19,13 @@ var taskEdit = {};
         });
         taskEdit.$saveTaskButton.off('click').click(function() {
             taskEdit.editTask(taskId);
+        });
+        taskEdit.$taskFileInput.change(function() {
+            taskEdit.$taskFilesList.push(taskEdit.$taskFileInput.prop('files')[0]);
+            taskEdit.$taskFilesTable.html("");
+            $.each(taskEdit.$taskFilesList, function(i, file) {
+                taskEdit.$taskFilesTable.append('<tr><td>'+file.name+'</td><td><button type="button" class="btn btn-primary fileDownload" data-function="save-task">Pobierz</button></td></tr>');
+            });
         });
     };
 

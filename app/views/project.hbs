@@ -201,7 +201,16 @@
 
                     </div>
                     <div role="tabpanel" class="tab-pane fade in" id="files-tab-edit">
-                        b
+                        <div class="col-xs-4">
+                           <div class="form-group">
+                             <table class="table">
+                                <tbody id="task-edit-filesTable">
+                                </tbody>
+                              </table>
+                             <label class="control-label">Dodaj nowy plik:</label>
+                             <input type="file" class="filestyle" id="task-edit-fileInput" data-buttonText="Wybierz">
+                           </div>
+                        </div>
                     </div>
                 </div>
 
@@ -222,3 +231,5 @@
 <script src="/public/assets/js/Project/boardEdit.js"></script>
 <script src="/public/assets/js/Project/boardAdd.js"></script>
 <script src="/public/assets/js/Project/project.js"></script>
+<script src="/public/plugins/bootstrap/bootstrap-filestyle.js"></script>
+<script type="text/javascript" src="/public/plugins/bootstrap/bootstrap-filestyle.min.js"></script>
