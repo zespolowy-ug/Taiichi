@@ -226,65 +226,64 @@ app.post('/projectDelete', function(req, res) {
 });
 
 app.post('/findUserToInvite', function(req, res) {
-    var searchInput = req.body.searchInput;
+     var searchInput = req.body.searchInput;
 
     var findUsers = function(){
-        return models.user.findAll({
-            attributes: ['user_id', 'firstname', 'lastname', 'email'],
-            where: {
-                [models.Sequelize.Op.or]: [
-                    {
-                        firstname: {
-                            [models.Sequelize.Op.like]: '%' + searchInput + '%'
-                        }
-                    },
-                    {
-                        lastname: {
-                            [models.Sequelize.Op.like]: '%' + searchInput + '%'
-                        }
-                    }
-                ]
-            }
-        });
-    };
+         return models.user.findAll({
+             attributes: ['user_id', 'firstname', 'lastname', 'email'],
+             where: {
+                 [models.Sequelize.Op.or]: [
+                     {
+                         firstname: {
+                             [models.Sequelize.Op.like]: '%' + searchInput + '%'
+                         }
+                     },
+                     {
+                         lastname: {
+                             [models.Sequelize.Op.like]: '%' + searchInput + '%'
+                         }
+                     }
+                 ]
+             }
+         });
+     };
 
 
-    var usersData = findUsers().then(function(data) {
-        res.setHeader('Content-Type', 'application/json');
+     var usersData = findUsers().then(function(data) {
+         res.setHeader('Content-Type', 'application/json');
 
-        res.send(JSON.stringify({
-            data: data || null
-        }));
-    });
-});
+         res.send(JSON.stringify({
+             data: data || null
+         }));
+     });
+ });
 
-app.post('/addUserToProject', function(req, res) {
-    var projectId = req.body.projectId;
-    var userId = req.body.userId;
+ app.post('/addUserToProject', function(req, res) {
+     var projectId = req.body.projectId;
+     var userId = req.body.userId;
 
-    var assignUser = function() {
-        return models.users_to_projects.create({
-            projectProjectId: projectId,
-            userUserId: userId
-        }).then(userToProjectData => {
+     var assignUser = function() {
+         return models.users_to_projects.create({
+             projectProjectId: projectId,
+             userUserId: userId
+         }).then(userToProjectData => {
 
-            return models.user.findOne({
-                where: {
-                    "user_id": parseInt(userId)
-                }
-            });
-        });
-    };
+             return models.user.findOne({
+                 where: {
+                     "user_id": parseInt(userId)
+                 }
+             });
+         });
+     };
 
-    var userData = assignUser().then(function(data) {
-        res.setHeader('Content-Type', 'application/json');
+     var userData = assignUser().then(function(data) {
+         res.setHeader('Content-Type', 'application/json');
 
-        res.send(JSON.stringify({
-            data: data || null
-        }));
-    });
-});
-
+         res.send(JSON.stringify({
+             data: data || null
+         }));
+     });
+ });
 
 app.post('/boardAdd', function(req, res) {
     var boardName = req.param("boardName");
@@ -551,6 +550,52 @@ app.post('/addTaskComment', function(req, res) {
         }));
     });
 
+});
+
+app.post('/sendMessage', function(req, res) {
+    var projectId = req.param("projectId");
+    var message = req.param("message");
+    var user = req.user;
+    console.log("SEND MESSAGE:"+message  +" to project: "+projectId);
+
+    var sendMessage = function() {
+        return models.chat_messages.create({
+            message: message,
+            project_id: projectId,
+            user_id : user.user_id,
+            firstname: user.firstname,
+            lastname: user.lastname
+        }).then(messageData => {
+            io.emit("newMessage", messageData);
+            return messageData;
+        });
+    };
+
+    var messageData = sendMessage().then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+app.post('/loadChat', function(req, res) {
+    var project_id = req.param("project_id");
+
+    var loadMesseges = function() {
+        return models.chat_messages.findAll({
+            where: {
+                "project_id": parseInt(project_id)
+            }
+        });
+    }
+
+    var commentData = loadMesseges().then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
 });
 
 app.get('/getUserData', function(req, res) {

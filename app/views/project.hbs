@@ -19,7 +19,15 @@
 </div>
 
 <div class="button-settings">
-    <div class="fa fa-filter button-settings__filter-icon"></div>
+    <div class="fa fa-cog button-settings__filter-icon"></div>
+</div>
+
+<div class="button-chat">
+    <div class="fa fa-commenting button-settings__filter-icon"></div>
+</div>
+
+<div class="button-notifications">
+    <div class="fa fa-bell button-notifications__filter-icon"></div>
 </div>
 
 <div class="settings-tab">
@@ -28,6 +36,23 @@
         <div class="settings-tab__users" data-function="project-users-list"></div>
         <div class="settings-tab__header">Dodaj użytkownika</div>
         <input class="form-control" data-function="user-invite-input">
+    </div>
+</div>
+
+<div class="chat-tab">
+    <div class="chat-tab__container">
+        <div class="chat-tab__messages">
+        </div>
+        <div style="position:absolute;bottom:8px;">
+          <div class="input-group" style="margin:0px 8px 0px 8px;">
+              <input type="text" class="form-control" id="chat-tab-messageInput" placeholder="Napisz wiadomość...">
+              <span class="input-group-btn">
+                  <button id="chat-tab-sendbutton" class="btn btn-primary" type="button">
+                      <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                  </button>
+              </span>
+          </div>
+        </div>
     </div>
 </div>
 
@@ -192,8 +217,8 @@
                                     <div class="input-group" style="margin-top:10px;">
                                         <input type="text" class="form-control" id="task-comment-content" placeholder="Napisz komentarz...">
                                         <span class="input-group-btn">
-                                  <button id="task-comment-add" class="btn btn-secondary" type="button">Dodaj</button>
-                                </span>
+                                            <button id="task-comment-add" class="btn btn-secondary" type="button">Dodaj</button>
+                                        </span>
                                     </div>
                                 </div>
                             </div>

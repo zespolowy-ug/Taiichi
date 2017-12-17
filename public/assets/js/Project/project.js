@@ -3,13 +3,13 @@ var projectVC = {};
     projectVC.$boardsList = $(".main-container").find(".scroll-y-container");
     projectVC.$confirmDeleteModal = $("#modal-confirm-delete");
     projectVC.$projectsSettingsButton = $(".button-settings");
+    projectVC.$projectsChatButton = $(".button-chat");
     projectVC.$projectsSettingsContainer = $(".settings-tab");
     projectVC.$projectsUsersList = $('[data-function="project-users-list"]');
-
+    projectVC.$chatSendButton= $('#chat-tab-sendbutton');
     projectVC.socket = null;
     projectVC.userData = null;
     projectVC.projectUsersList = [];
-
 
     projectVC.initView = function() {
         projectVC.projectUsersList = [];
@@ -44,111 +44,119 @@ var projectVC = {};
         });
 
         projectVC.initSockets();
-
         projectVC.initInvitations();
-
         projectVC.getUserData();
         projectVC.getProjectDetails();
+
         projectVC.$projectsSettingsButton.off('click').click(projectVC.toggleSettingsView);
+        projectVC.$projectsChatButton.off('click').click(projectVC.toggleChatView);
+        projectVC.$chatSendButton.off('click').click(projectVC.sendMessage);
+        $("#chat-tab-messageInput").keyup(function(event) {
+            if (event.keyCode === 13) {
+                projectVC.$chatSendButton.click();
+            }
+        });
+
     };
 
     projectVC.initInvitations = function(){
-        var typingTimer;
+         var typingTimer;
 
-        $('[data-function="user-invite-input"]').off('keyup').on('keyup', function () {
-            $(".custom-dropdown").remove();
-            clearTimeout(typingTimer);
-            typingTimer = setTimeout(projectVC.findUser, 1000);
-        });
+         $('[data-function="user-invite-input"]').off('keyup').on('keyup', function () {
+             $(".custom-dropdown").remove();
+             clearTimeout(typingTimer);
+             typingTimer = setTimeout(projectVC.findUser, 1000);
+         });
 
-        $('[data-function="user-invite-input"]').off('keydown').on('keydown', function () {
-            clearTimeout(typingTimer);
-        });
-    };
+         $('[data-function="user-invite-input"]').off('keydown').on('keydown', function () {
+             clearTimeout(typingTimer);
+         });
+     };
 
-    projectVC.findUser = function(){
-        if(!$('[data-function="user-invite-input"]').val()){
-            return;
-        }
-
-        $.ajax({
-            type: "POST",
-            url: "/findUserToInvite",
-            data: {
-                searchInput : $('[data-function="user-invite-input"]').val()
-            },
-            success: function(ret) {
-                projectVC.showUsersToInvite(ret.data);
-            },
-            error: function(jqXHR, errorText, errorThrown) {
-                console.log("Error occured at findUserToInvite()");
-            }
-        });
-    };
-
-    projectVC.showUsersToInvite = function(usersData){
-        var $dropdown = $('<div class="custom-dropdown w-200"></div>');
-        var $dropdownItem;
-        if(usersData.length === 0){
-            $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--notfound">Nie znaleziono użytkownika</div>');
-            $dropdown.append($dropdownItem);
-        }
-        else{
-            $.each(usersData, function(index, user){
-                $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--user"></div>');
-                $dropdownItem.text(user.firstname.trim() + " " + user.lastname.trim());
-                $dropdownItem.attr('data-user-id', user.user_id);
-                $dropdownItem.off('click').on('click', projectVC.onUserAddClick);
-
-                $dropdown.append($dropdownItem);
-            });
-        }
-
-        $dropdown.css({
-            left: $('[data-function="user-invite-input"]').offset().left,
-            top: $('[data-function="user-invite-input"]').offset().top + 36
-        });
-
-        $(document).off('click.customDropdown').on('click.customDropdown',function(event) {
-            if(!$(event.target).closest('.custom-dropdown').length) {
-                if($('.custom-dropdown').is(":visible")) {
-                    $('.custom-dropdown').remove();
-                    $(document).off('click.customDropdown');
-                }
-            }
-        });
-
-        $("body").append($dropdown);
-    };
-
-    projectVC.onUserAddClick = function(){
-        var clickedElement = $(this);
-        var userId = clickedElement.attr('data-user-id');
+     projectVC.findUser = function(){
+         if(!$('[data-function="user-invite-input"]').val()){
+             return;
+         }
 
         $.ajax({
             type: "POST",
-            url: "/addUserToProject",
-            data: {
-                projectId: projectVC.$projectIdInput.val(),
-                userId: userId
-            },
-            success: function(ret) {
-                projectVC.appendUser(ret.data);
-                $(".custom-dropdown").remove();
-                $('[data-function="user-invite-input"]').val("");
-            },
-            error: function(jqXHR, errorText, errorThrown) {
-                console.log("Error occured at projectDetails()");
+             url: "/findUserToInvite",
+             data: {
+                 searchInput : $('[data-function="user-invite-input"]').val()
+             },
+             success: function(ret) {
+                 projectVC.showUsersToInvite(ret.data);
+             },
+             error: function(jqXHR, errorText, errorThrown) {
+                 console.log("Error occured at findUserToInvite()");
+             }
+         });
+     };
+
+     projectVC.showUsersToInvite = function(usersData){
+         var $dropdown = $('<div class="custom-dropdown w-200"></div>');
+         var $dropdownItem;
+         if(usersData.length === 0){
+             $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--notfound">Nie znaleziono użytkownika</div>');
+             $dropdown.append($dropdownItem);
+         }
+         else{
+             $.each(usersData, function(index, user){
+                 console.log(user);
+                 $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--user"></div>');
+                 $dropdownItem.text(user.firstname.trim() + " " + user.lastname.trim());
+                 $dropdownItem.attr('data-user-id', user.user_id);
+                 $dropdownItem.off('click').on('click', projectVC.onUserAddClick);
+
+                 $dropdown.append($dropdownItem);
+             });
+         }
+
+         $dropdown.css({
+             left: $('[data-function="user-invite-input"]').offset().left,
+             top: $('[data-function="user-invite-input"]').offset().top + 36
+         });
+
+         $(document).off('click.customDropdown').on('click.customDropdown',function(event) {
+             if(!$(event.target).closest('.custom-dropdown').length) {
+                 if($('.custom-dropdown').is(":visible")) {
+                     $('.custom-dropdown').remove();
+                     $(document).off('click.customDropdown');
+                 }
+             }
+         });
+
+         $("body").append($dropdown);
+     };
+
+     projectVC.onUserAddClick = function(){
+         var clickedElement = $(this);
+         var userId = clickedElement.attr('data-user-id');
+
+         $.ajax({
+             type: "POST",
+             url: "/addUserToProject",
+             data: {
+                 projectId: projectVC.$projectIdInput.val(),
+                 userId: userId
+             },
+             success: function(ret) {
+                 projectVC.appendUser(ret.data);
+                 $(".custom-dropdown").remove();
+                 $('[data-function="user-invite-input"]').val("");
+             },
+             error: function(jqXHR, errorText, errorThrown) {
+               console.log("Error occured at projectDetails()");
             }
-        });
+         });
 
-    };
-
+     };
 
     projectVC.getUserData = function(){
         $.getJSON("/getUserData", function(data) {
             projectVC.userData = data;
-            $('#userDropdown').text(data.email);
+            $('#userDropdown').text(data.firstname + ' ' + data.lastname);
+            projectVC.loadChat(projectVC.$projectIdInput.val(),projectVC.userData.user_id);
         });
     }
 
@@ -167,6 +175,18 @@ var projectVC = {};
             }
         });
 
+        socket.on('newMessage', function(message){
+          if(message.project_id === projectVC.$projectIdInput.val()){
+              if(message.user_id === projectVC.userData.user_id){
+                  $('.chat-tab__messages').prepend('<div class="chat-message"><div class="chat-message-content" style="float:right">'+message.message+'</div><br><span class="chat-message-user" style="text-align:right;width:100%">Ty<span class="chat-message-date">'+moment(message.updatedAt).locale("pl").local().calendar()+'</span></span></div>');
+                  $('.chat-tab__messages').find(".chat-message:first").hide().show("fade",200);
+              }else{
+                  $('.chat-tab__messages').prepend('<div class="chat-message"><div class="chat-message-content">'+message.message+'</div><br><span class="chat-message-user">'+message.firstname+' '+message.lastname+'<span class="chat-message-date">'+moment(message.updatedAt).locale("pl").local().calendar()+'</span></span></div>');
+                  $('.chat-tab__messages').find(".chat-message:first").hide().show("fade",200);
+              }
+          }
+        });
+
     };
 
     projectVC.toggleSettingsView = function(){
@@ -182,6 +202,65 @@ var projectVC = {};
             $(".settings-tab").addClass("settings-tab--expanded");
             $(".main-container").addClass("main-container--collapsed");
         }
+    };
+
+    projectVC.toggleChatView = function(){
+        var clickedButton = $(this);
+
+        if(clickedButton.hasClass("button-chat--selected")){
+            clickedButton.removeClass("button-chat--selected");
+            $(".chat-tab").removeClass("chat-tab--expanded");
+            $(".main-container").removeClass("main-container--collapsed");
+        }
+        else{
+            clickedButton.addClass("button-chat--selected");
+            $(".chat-tab").addClass("chat-tab--expanded");
+            $(".main-container").addClass("main-container--collapsed");
+        }
+    };
+
+    projectVC.sendMessage = function(){
+        var message = $("#chat-tab-messageInput");
+        if(message.val() !== ""){
+            $.ajax({
+                type: "POST",
+                url: "/sendMessage",
+                data: {
+                    projectId: projectVC.$projectIdInput.val(),
+                    message: message.val()
+                },
+                success: function(ret) {
+                    message.val("");
+                },
+                error: function(jqXHR, errorText, errorThrown) {
+                    console.log("Error occured at projectDetails()");
+                }
+            });
+        }
+    };
+
+    projectVC.loadChat = function(project_id, user_id){
+        $.ajax({
+            type: "POST",
+            url: "/loadChat",
+            data: {
+                project_id: project_id
+            },
+            success: function(ret) {
+                console.log(ret);
+                    taskEdit.$commentList.text("");
+                    $.each(ret.data, function(index, message) {
+                        if(message.user_id === projectVC.userData.user_id){
+                            $('.chat-tab__messages').prepend('<div class="chat-message"><div class="chat-message-content" style="float:right">'+message.message+'</div><br><span class="chat-message-user" style="text-align:right;width:100%">Ty<span class="chat-message-date">'+moment(message.updatedAt).locale("pl").local().calendar()+'</span></span></div>');
+                        }else{
+                            $('.chat-tab__messages').prepend('<div class="chat-message"><div class="chat-message-content">'+message.message+'</div><br><span class="chat-message-user">'+message.firstname+' '+message.lastname+'<span class="chat-message-date">'+moment(message.updatedAt).locale("pl").local().calendar()+'</span></span></div>');
+                        }
+                    });
+            },
+            error: function(jqXHR, errorText, errorThrown) {
+                console.log("Error occured at projectDetails()");
+            }
+        });
     };
 
     projectVC.getProjectDetails = function() {
@@ -214,9 +293,9 @@ var projectVC = {};
         var $userItem = $(projectVC.userTemplate);
             $userItem.text(userToProject.firstname.trim().substring(0,1).toUpperCase() + userToProject.lastname.trim().substring(0,1).toUpperCase());
             $userItem.tooltip({
-                placement: "bottom",
-                title: userToProject.firstname.trim() + " " + userToProject.lastname.trim()
-            })
+                 placement: "bottom",
+                 title: userToProject.firstname.trim() + " " + userToProject.lastname.trim()
+             })
         projectVC.$projectsUsersList.append($userItem);
     };
 

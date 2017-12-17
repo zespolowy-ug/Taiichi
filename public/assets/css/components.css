@@ -31,26 +31,24 @@
     background-color: #efefef;
 }
 
-
 .custom-dropdown__item--user{
-    height: 36px;
-    line-height: 36px;
+     height: 36px;
+     line-height: 36px;
+ }
+
+ .custom-dropdown__item--notfound{
+     height: 36px;
+     line-height: 36px;
+
+ }
+
+ .custom-dropdown__item--notfound:hover{
+     height: 36px;
+     line-height: 36px;
+     color: #999;
+     font-weight: bold;
+     background-color: #efefef;
 }
-
-.custom-dropdown__item--notfound{
-    height: 36px;
-    line-height: 36px;
-
-}
-
-.custom-dropdown__item--notfound:hover{
-    height: 36px;
-    line-height: 36px;
-    color: #999;
-    font-weight: bold;
-    background-color: #efefef;
-}
-
 
 .nomargin{
     margin: 0 !important;
