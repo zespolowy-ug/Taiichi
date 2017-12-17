@@ -267,7 +267,10 @@ app.post('/findUserToInvite', function(req, res) {
              projectProjectId: projectId,
              userUserId: userId
          }).then(userToProjectData => {
-
+             io.emit("notification-addedToProject", {
+                 userId: userId,
+                 projectId: projectId
+             });
              return models.user.findOne({
                  where: {
                      "user_id": parseInt(userId)
