@@ -328,7 +328,11 @@ h1 {
     font-size: 25px;
     line-height: 40px;
 }
-
+.button-chat--effect{
+    animation-name: example;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
 .button-chat{
     position: fixed;
     right: 10px;
@@ -364,7 +368,7 @@ h1 {
 }
 .button-notifications--effect{
     animation-name: example;
-    animation-duration: 1s;
+    animation-duration: 2s;
     animation-iteration-count: infinite;
 }
 .button-notifications{

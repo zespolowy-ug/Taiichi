@@ -180,10 +180,15 @@ var projectVC = {};
 
         socket.on('newMessage', function(message){
           if(message.project_id === projectVC.$projectIdInput.val()){
+
               if(message.user_id === projectVC.userData.user_id){
                   $('.chat-tab__messages').prepend('<div class="chat-message"><div class="chat-message-content" style="float:right">'+message.message+'</div><br><span class="chat-message-user" style="text-align:right;width:100%">Ty<span class="chat-message-date">'+moment(message.updatedAt).locale("pl").local().calendar()+'</span></span></div>');
                   $('.chat-tab__messages').find(".chat-message:first").hide().show("fade",200);
               }else{
+                var chatButton = $('.button-chat');
+                if(!chatButton.hasClass("button-chat--effect")){
+                    chatButton.addClass("button-chat--effect");
+                }
                   $('.chat-tab__messages').prepend('<div class="chat-message"><div class="chat-message-content">'+message.message+'</div><br><span class="chat-message-user">'+message.firstname+' '+message.lastname+'<span class="chat-message-date">'+moment(message.updatedAt).locale("pl").local().calendar()+'</span></span></div>');
                   $('.chat-tab__messages').find(".chat-message:first").hide().show("fade",200);
               }
@@ -244,6 +249,9 @@ var projectVC = {};
             clickedButton.addClass("button-chat--selected");
             $(".chat-tab").addClass("chat-tab--expanded");
             $(".main-container").addClass("main-container--collapsed");
+        }
+        if(clickedButton.hasClass("button-chat--effect")){
+            clickedButton.removeClass("button-chat--effect");
         }
     };
 
