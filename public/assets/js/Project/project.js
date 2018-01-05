@@ -2,9 +2,15 @@ var projectVC = {};
     projectVC.$projectIdInput = $('[data-function="projectId"]');
     projectVC.$boardsList = $(".main-container").find(".scroll-y-container");
     projectVC.$confirmDeleteModal = $("#modal-confirm-delete");
+
     projectVC.$projectsNotificationsButton = $(".button-notifications");
     projectVC.$projectsSettingsButton = $(".button-settings");
     projectVC.$projectsChatButton = $(".button-chat");
+
+    projectVC.$projectsNotificationsTab = $(".notifications-tab");
+    projectVC.$projectsSettingsTab = $(".settings-tab");
+    projectVC.$projectsChatTab = $(".chat-tab");
+
     projectVC.$projectsSettingsContainer = $(".settings-tab");
     projectVC.$projectsUsersList = $('[data-function="project-users-list"]');
     projectVC.$chatSendButton= $('#chat-tab-sendbutton');
@@ -57,6 +63,10 @@ var projectVC = {};
             if (event.keyCode === 13) {
                 projectVC.$chatSendButton.click();
             }
+        });
+
+        projectVC.$projectsChatTab.off('click').click(function(){
+            projectVC.$projectsChatButton.removeClass("button-chat--effect");
         });
 
     };
@@ -197,6 +207,8 @@ var projectVC = {};
 
         socket.on('newNotification', function(message){
               var notificationsButton = $('.button-notifications');
+
+
               if(!notificationsButton.hasClass("button-notifications--effect")){
                   notificationsButton.addClass("button-notifications--effect");
               }
@@ -345,10 +357,17 @@ var projectVC = {};
 
     projectVC.appendUser = function(userToProject){
         var $userItem = $(projectVC.userTemplate);
+            $userItem.attr('data-user-id', userToProject.user_id);
             $userItem.text(userToProject.firstname.trim().substring(0,1).toUpperCase() + userToProject.lastname.trim().substring(0,1).toUpperCase());
             $userItem.tooltip({
                  placement: "bottom",
                  title: userToProject.firstname.trim() + " " + userToProject.lastname.trim()
+             });
+
+             $userItem.draggable({
+                 revert: true,
+                 helper: 'clone',
+                 appendTo: 'body'
              })
         projectVC.$projectsUsersList.append($userItem);
     };
@@ -397,6 +416,16 @@ var projectVC = {};
             });
         $.each(boardData.tasks, function(index, taskItem) {
             var $taskItem = $(projectVC.taskTemplate);
+
+            $taskItem.droppable({
+                drop: function(event, ui){
+                    console.log(ui.draggable);
+                    var userId = $(ui.draggable).attr('data-user-id');
+
+                    console.log(userId);
+                }
+            });
+
             $taskItem.off('dblclick').dblclick(function(){
                 taskEdit.initView(taskItem.task_id);
             });
@@ -405,6 +434,7 @@ var projectVC = {};
             $taskItem.find('[data-function="task-description"]').text(taskItem.description);
 
             $boardItem.find(".tasks-list").append($taskItem);
+
         });
 
         $boardItem.find(".card-custom__settings-menu").off('click').click(projectVC.showSettingsDropdown);

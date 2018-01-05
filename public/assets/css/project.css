@@ -532,6 +532,7 @@ h1 {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    background-color: #fff;
 }
 .user-item:hover{
      transition: .3s;
