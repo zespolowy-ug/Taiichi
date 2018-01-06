@@ -49,5 +49,29 @@ var taskAdd = {};
             $taskItem.find('[data-function="task-name"]').text(taskData.name);
             $taskItem.find('[data-function="task-description"]').text(taskData.description);
 
+            $taskItem.droppable({
+                drop: function(event, ui){
+                    var userId = $(ui.draggable).attr('data-user-id');
+                    var $userItem = $(ui.draggable).clone();
+
+                    $(".ui-draggable-dragging").remove();
+
+                    $.ajax({
+                        type     : "POST",
+                        url      : "/addUserToTask",
+                        data     : {
+                            userId : userId,
+                            taskId : taskData.task_id
+                        },
+                        success: function(ret) {
+                            $('[data-task-id="'+ taskData.task_id +'"]').find(".task-users").append($userItem);
+                        },
+                        error: function(jqXHR, errorText, errorThrown) {
+                          console.log("Error occured at addUserToTask()");
+                        }
+                    });
+                }
+            });
+
             $boardItem.find(".tasks-list").append($taskItem);
     };

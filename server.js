@@ -95,7 +95,13 @@ app.post('/projectDetails', function(req, res) {
             include: [{
                 model: models.board,
                 include: [{
-                    model: models.task
+                    model: models.task,
+                    include: [{
+                        model: models.users_to_tasks,
+                        include: [{
+                            model: models.user
+                        }]
+                    }]
                 }]
             },
             {
@@ -565,7 +571,7 @@ app.post('/addUserToTask', function(req, res) {
     var userId = req.body.userId;
 
     var assignUser = function() {
-        return models.users_to_projects.create({
+        return models.users_to_tasks.create({
             taskTaskId: taskId,
             userUserId: userId
         }).then(userToTaskData => {

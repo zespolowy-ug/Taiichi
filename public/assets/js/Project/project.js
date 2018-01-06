@@ -106,7 +106,7 @@ var projectVC = {};
      };
 
      projectVC.showUsersToInvite = function(usersData){
-         var $dropdown = $('<div class="custom-dropdown w-200"></div>');
+         var $dropdown = $('<div class="custom-dropdown w-270"></div>');
          var $dropdownItem;
          if(usersData.length === 0){
              $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--notfound">Nie znaleziono użytkownika</div>');
@@ -114,7 +114,6 @@ var projectVC = {};
          }
          else{
              $.each(usersData, function(index, user){
-                 console.log(user);
                  $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--user"></div>');
                  $dropdownItem.text(user.firstname.trim() + " " + user.lastname.trim());
                  $dropdownItem.attr('data-user-id', user.user_id);
@@ -419,10 +418,31 @@ var projectVC = {};
 
             $taskItem.droppable({
                 drop: function(event, ui){
-                    console.log(ui.draggable);
                     var userId = $(ui.draggable).attr('data-user-id');
+                    var $userItem = $(ui.draggable).clone();
+                        $userItem.removeClass("ui-draggable ui-draggable-handle");
 
-                    console.log(userId);
+
+                    $(".ui-draggable-dragging").remove();
+
+                    $.ajax({
+                        type     : "POST",
+                        url      : "/addUserToTask",
+                        data     : {
+                            userId : userId,
+                            taskId : taskItem.task_id
+                        },
+                        success: function(ret) {
+                            $userItem.tooltip({
+                                title: ret.data.firstname.trim() + " " + ret.data.lastname.trim(),
+                                placement: "bottom"
+                            });
+                            $('[data-task-id="'+ taskItem.task_id +'"]').find(".task-users").append($userItem);
+                        },
+                        error: function(jqXHR, errorText, errorThrown) {
+                          console.log("Error occured at addUserToTask()");
+                        }
+                    });
                 }
             });
 
@@ -432,6 +452,17 @@ var projectVC = {};
             $taskItem.attr('data-task-id', taskItem.task_id);
             $taskItem.find('[data-function="task-name"]').text(taskItem.name);
             $taskItem.find('[data-function="task-description"]').text(taskItem.description);
+
+            $.each(taskItem.users_to_tasks, function(index, user){
+                var $userItem = $(projectVC.userTemplate);
+                    $userItem.attr('data-user-id', user.user.user_id);
+                    $userItem.text(user.user.firstname.trim().substring(0,1).toUpperCase() + user.user.lastname.trim().substring(0,1).toUpperCase());
+                    $userItem.tooltip({
+                        title: user.user.firstname.trim() + " " + user.user.lastname.trim(),
+                        placement: "bottom"
+                    });
+                $taskItem.find(".task-users").append($userItem);
+            });
 
             $boardItem.find(".tasks-list").append($taskItem);
 
@@ -532,6 +563,7 @@ var projectVC = {};
         '<li class="task ui-sortable-handle">',
         '	<h6 data-function="task-name"></h6>',
         '	<div data-function="task-description" class="cut-string"></div>',
+        '   <div class="task-users"></div>',
         '</li>'
     ].join("\n");
 

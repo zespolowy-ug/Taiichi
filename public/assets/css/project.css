@@ -3,9 +3,10 @@
  */
 
 /* Move down content because we have a fixed navbar that is 50px tall */
+
 body {
-  padding-top: 50px;
-  background: #0076bf;
+    padding-top: 50px;
+    background: #0076bf;
 }
 
 /*
@@ -13,225 +14,236 @@ body {
  */
 
 h1 {
-  margin-bottom: 20px;
-  padding-bottom: 9px;
-  border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+    padding-bottom: 9px;
+    border-bottom: 1px solid #eee;
 }
 
 /*
  * Sidebar
  */
-	.main-container{
-		padding-top: 8px;
-		display: inline-block;
-		position: absolute;
-		left: 0;
-		right: 0;
-		bottom: 0;
-		top: 0;
-		overflow-x: scroll;
-		overflow-y: hidden;
-		height: calc(100vh - 50px);
-	    background: #e6e6e6;
-        transition: .3s;
-	}
 
-    .main-container--collapsed{
-        right: 300px;
-        transition: .3s;
-    }
+.main-container {
+    padding-top: 8px;
+    display: inline-block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    height: calc(100vh - 50px);
+    background: #e6e6e6;
+    transition: .3s;
+}
 
-	.scroll-y-container{
-		padding: 5px;
-		display: inline-block;
-        width: -moz-max-content;
-        width: -webkit-max-content;
-        width: max-content;
-	}
+.main-container--collapsed {
+    right: 300px;
+    transition: .3s;
+}
 
-    .card-custom{
-		display: inline-block;
-        float: left;
-        width: 250px;
-        margin: 5px;
-        height: calc(100vh - 96px);
-    }
+.scroll-y-container {
+    padding: 5px;
+    display: inline-block;
+    width: -moz-max-content;
+    width: -webkit-max-content;
+    width: max-content;
+}
 
-	.card-custom-wrapper{
-		-webkit-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
-		-moz-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
-		box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
-        width: 100%;
-        display: inline-block;
-		float: left;
-		height: auto;
-		background-color: white;
-	}
-	.card-button{
-		color: white;
-		border-radius: 3px;
-		background: #424242;
-		padding: 5px 10px;
-		margin: 10px;
-		text-align: center;
-		cursor: pointer;
-	}
-	.card-button:hover{
-		background: #292929;
-		transition: 0.2s;
-	}
+.card-custom {
+    display: inline-block;
+    float: left;
+    width: 250px;
+    margin: 5px;
+    height: calc(100vh - 96px);
+}
 
-	.card-custom-title{
-        position: relative;
-		line-height: 30px;
-	    background: black;
-		padding-left: 10px;
-		color: white;
-	}
-	.card-custom-title span{
+.card-custom-wrapper {
+    -webkit-box-shadow: 2px 2px 20px -10px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 2px 20px -10px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 2px 20px -10px rgba(0, 0, 0, 0.75);
+    width: 100%;
+    display: inline-block;
+    float: left;
+    height: auto;
+    background-color: white;
+}
 
-	}
-  .settings-tab__users{
-       width: 100%;
-       min-height: 30px;
-       min-width: 100px;
-   }
-    .card-custom__settings-menu{
-        position: absolute;
-        right: 5px;
-        top: 4px;
-        width: 24px;
-        height: 24px;
-        font-size: 18px;
-        padding: 0;
-        text-align: center;
-        color: #fff;
-        background-color: transparent;
-        border: 1px transparent solid;
-        transition: .3s;
-        outline: none;
-    }
+.card-button {
+    color: white;
+    border-radius: 3px;
+    background: #424242;
+    padding: 5px 10px;
+    margin: 10px;
+    text-align: center;
+    cursor: pointer;
+}
 
-    .card-custom__settings-menu:hover{
-        cursor: pointer;
-        transition: .3s;
-        color: #ddd;
-        outline: none;
-    }
+.card-button:hover {
+    background: #292929;
+    transition: 0.2s;
+}
 
-    .card-custom__settings-menu:active,
-    .card-custom__settings-menu:focus,
-    .card-custom__settings-menu:visited{
-        text-decoration: none;
-        outline: none;
-    }
+.card-custom-title {
+    position: relative;
+    line-height: 30px;
+    background: black;
+    padding-left: 10px;
+    color: white;
+}
 
-    .button__add-task{
-        float:right;
-        margin:5px;
-        margin-top: -10px;
-    }
-	button {
-		cursor: pointer;
-	}
+.card-custom-title span {}
 
-	.tasks-list{
-		min-height: 65px;
-		padding-left: 0;
-		list-style-type: none;
-		overflow-y: auto;
-		overflow-x: hidden;
-		max-height: calc(100vh - 165px);
+.settings-tab__users {
+    width: 100%;
+    min-height: 30px;
+    min-width: 100px;
+}
 
-	}
+.card-custom__settings-menu {
+    position: absolute;
+    right: 5px;
+    top: 4px;
+    width: 24px;
+    height: 24px;
+    font-size: 18px;
+    padding: 0;
+    text-align: center;
+    color: #fff;
+    background-color: transparent;
+    border: 1px transparent solid;
+    transition: .3s;
+    outline: none;
+}
 
-	.brd-orange {
-		border-left: 4px solid #ffc400 !important;
-	}
+.card-custom__settings-menu:hover {
+    cursor: pointer;
+    transition: .3s;
+    color: #ddd;
+    outline: none;
+}
 
-	.brd-green {
-		border-left: 4px solid #33ff6f  !important;
-	}
+.card-custom__settings-menu:active, .card-custom__settings-menu:focus, .card-custom__settings-menu:visited {
+    text-decoration: none;
+    outline: none;
+}
 
-	.task {
-		border-left: 4px solid red;
-		line-height: 14px;
-		font-size: 11px;
-		padding: 11px;
-		cursor: pointer;
-		border-bottom: 1px solid #e2e2e2;
-	}
+.button__add-task {
+    float: right;
+    margin: 5px;
+    margin-top: -10px;
+}
 
-  .task:hover{
+button {
+    cursor: pointer;
+}
+
+.tasks-list {
+    min-height: 65px;
+    padding-left: 0;
+    list-style-type: none;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(100vh - 165px);
+}
+
+.brd-orange {
+    border-left: 4px solid #ffc400 !important;
+}
+
+.brd-green {
+    border-left: 4px solid #33ff6f !important;
+}
+
+.task {
+    border-left: 4px solid red;
+    line-height: 14px;
+    font-size: 11px;
+    padding: 11px;
+    cursor: pointer;
+    border-bottom: 1px solid #e2e2e2;
+}
+
+.task:hover {
     background: #f0f0f0;
-  }
+}
 
-	.task:active{
-		background-color: #ffd7d7;
-	}
+.task:active {
+    background-color: #ffd7d7;
+}
+
+.task-users {
+    display: inline-block;
+    width: 100%;
+    padding-top: 10px;
+}
 
 .cut-string {
-        display: block;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .sidebar {
-  position: fixed;
-  top: 51px;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  padding: 20px;
-  overflow-x: hidden;
-  overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
-  border-right: 1px solid #eee;
+    position: fixed;
+    top: 51px;
+    bottom: 0;
+    left: 0;
+    z-index: 1000;
+    padding: 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    /* Scrollable contents if viewport is shorter than content. */
+    border-right: 1px solid #eee;
 }
 
 /* Sidebar navigation */
+
 .sidebar {
-  padding-left: 0;
-  padding-right: 0;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 .sidebar .nav {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .sidebar .nav-item {
-  width: 100%;
+    width: 100%;
 }
 
-.sidebar .nav-item + .nav-item {
-  margin-left: 0;
+.sidebar .nav-item+.nav-item {
+    margin-left: 0;
 }
 
 .sidebar .nav-link {
-  border-radius: 0;
+    border-radius: 0;
 }
 
 /*
  * Dashboard
  */
 
- /* Placeholders */
+/* Placeholders */
+
 .placeholders {
-  padding-bottom: 3rem;
+    padding-bottom: 3rem;
 }
 
 .placeholder img {
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
 }
 
-.add-board{
+.add-board {
     width: 250px;
     height: 133px;
     background-color: #fff;
 }
 
-.add-board__header{
+.add-board__header {
     width: 100%;
     height: 30px;
     line-height: 30px;
@@ -240,7 +252,7 @@ h1 {
     color: #fff;
 }
 
-.add-board__plus{
+.add-board__plus {
     width: 100%;
     height: 100%;
     text-align: center;
@@ -252,13 +264,13 @@ h1 {
     transition: .2s;
 }
 
-.add-board__plus:hover{
+.add-board__plus:hover {
     cursor: pointer;
     opacity: 0.6;
     transition: .2s;
 }
 
-#comment-list{
+#comment-list {
     margin: 0;
     padding: 0;
     list-style-type: none;
@@ -266,7 +278,7 @@ h1 {
     overflow-y: auto;
 }
 
-#comment-list li{
+#comment-list li {
     border-bottom: 1px solid #e7e7e7;
     padding-bottom: 5px;
     display: inline-block;
@@ -274,20 +286,20 @@ h1 {
     width: 100%;
 }
 
-.comment-content{
+.comment-content {
     font-size: 12px;
     display: inline-block;
     float: left;
     width: 100%;
 }
 
-.comment-user{
+.comment-user {
     font-size: 10px;
     display: inline-block;
     float: left;
 }
 
-.comment-date{
+.comment-date {
     font-size: 10px;
     padding-right: 8px;
     color: #c6c6c6;
@@ -295,11 +307,11 @@ h1 {
     float: right;
 }
 
-.modal-content{
+.modal-content {
     background: #fbfbfb;
 }
 
-.button-settings{
+.button-settings {
     position: fixed;
     right: 10px;
     bottom: 24px;
@@ -310,30 +322,32 @@ h1 {
     transition: .3s;
 }
 
-.button-settings:hover{
+.button-settings:hover {
     background-color: #333;
     color: #fff;
     transition: .3s;
     cursor: pointer;
 }
 
-.button-settings--selected{
+.button-settings--selected {
     background-color: #333;
     color: #fff;
     transition: .3s;
     right: 300px;
 }
 
-.button-settings__filter-icon{
+.button-settings__filter-icon {
     font-size: 25px;
     line-height: 40px;
 }
-.button-chat--effect{
+
+.button-chat--effect {
     animation-name: example;
     animation-duration: 2s;
     animation-iteration-count: infinite;
 }
-.button-chat{
+
+.button-chat {
     position: fixed;
     right: 10px;
     bottom: 70px;
@@ -344,34 +358,41 @@ h1 {
     transition: .3s;
 }
 
-.button-chat:hover{
+.button-chat:hover {
     background-color: #333;
     color: #fff;
     transition: .3s;
     cursor: pointer;
 }
 
-.button-chat--selected{
+.button-chat--selected {
     background-color: #333;
     color: #fff;
     transition: .3s;
     right: 300px;
 }
 
-.button-chat__filter-icon{
+.button-chat__filter-icon {
     font-size: 25px;
     line-height: 40px;
 }
+
 @keyframes example {
-    from {background-color: #ff9393;}
-    to {background-color: white;}
+    from {
+        background-color: #ff9393;
+    }
+    to {
+        background-color: white;
+    }
 }
-.button-notifications--effect{
+
+.button-notifications--effect {
     animation-name: example;
     animation-duration: 2s;
     animation-iteration-count: infinite;
 }
-.button-notifications{
+
+.button-notifications {
     position: fixed;
     right: 10px;
     bottom: 116px;
@@ -382,26 +403,26 @@ h1 {
     transition: .3s;
 }
 
-.button-notifications:hover{
+.button-notifications:hover {
     background-color: #333;
     color: #fff;
     transition: .3s;
     cursor: pointer;
 }
 
-.button-notifications--selected{
+.button-notifications--selected {
     background-color: #333;
     color: #fff;
     transition: .3s;
     right: 300px;
 }
 
-.button-notifications__filter-icon{
+.button-notifications__filter-icon {
     font-size: 25px;
     line-height: 40px;
 }
 
-.settings-tab{
+.settings-tab {
     width: 0px;
     position: fixed;
     overflow: hidden;
@@ -412,12 +433,12 @@ h1 {
     background-color: #fff;
 }
 
-.settings-tab--expanded{
+.settings-tab--expanded {
     width: 300px;
     transition: .3s;
 }
 
-.settings-tab__container{
+.settings-tab__container {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
@@ -425,13 +446,12 @@ h1 {
     padding: 15px 15px;
 }
 
-.settings-tab__header{
+.settings-tab__header {
     width: 100%;
     margin: 10px 0;
-
 }
 
-.notifications-tab{
+.notifications-tab {
     width: 0px;
     position: fixed;
     overflow: hidden;
@@ -442,12 +462,12 @@ h1 {
     background-color: #fff;
 }
 
-.notifications-tab--expanded{
+.notifications-tab--expanded {
     width: 300px;
     transition: .3s;
 }
 
-.notifications-tab__container{
+.notifications-tab__container {
     height: 100%;
     width: 100%;
     overflow-x: hidden;
@@ -455,7 +475,7 @@ h1 {
     padding: 15px 15px;
 }
 
-.chat-tab{
+.chat-tab {
     width: 0px;
     position: fixed;
     overflow: hidden;
@@ -466,25 +486,25 @@ h1 {
     background-color: #fff;
 }
 
-.chat-tab--expanded{
+.chat-tab--expanded {
     width: 300px;
     transition: .3s;
 }
 
-.chat-tab__container{
+.chat-tab__container {
     padding-bottom: 52px !important;
     height: 100%;
     width: 100%;
 }
 
-.chat-tab__header{
+.chat-tab__header {
     width: 100%;
     text-align: center;
     color: blue;
     margin: 10px 0px;
 }
 
-.chat-tab__messages{
+.chat-tab__messages {
     height: 100%;
     overflow-y: scroll;
     padding: 15px 15px;
@@ -492,13 +512,13 @@ h1 {
     flex-direction: column-reverse;
 }
 
-.chat-message{
+.chat-message {
     display: inline-block;
     width: 100%;
     margin-bottom: 5px;
 }
 
-.chat-message-content{
+.chat-message-content {
     display: inline-block;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
     background: #f9f9f9;
@@ -506,18 +526,18 @@ h1 {
     font-size: 12px;
 }
 
-.chat-message-user{
+.chat-message-user {
     display: inline-block;
     font-size: 11px;
-    color:lightgrey;
+    color: lightgrey;
 }
 
-.chat-message-date{
+.chat-message-date {
     margin-left: 4px
 }
 
-.user-item{
-  display: inline-block;
+.user-item {
+    display: inline-block;
     float: left;
     width: 30px;
     height: 30px;
@@ -534,8 +554,15 @@ h1 {
     user-select: none;
     background-color: #fff;
 }
-.user-item:hover{
-     transition: .3s;
-     color: #fff;
-     background-color: #333;
+
+.user-item:hover {
+    transition: .3s;
+    color: #fff;
+    background-color: #333;
+}
+
+.user-item.ui-draggable-handle {
+    transition: 0s;
+    color: #333;
+    background-color: #fff;
 }
