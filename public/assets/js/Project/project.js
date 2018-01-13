@@ -2,9 +2,15 @@ var projectVC = {};
     projectVC.$projectIdInput = $('[data-function="projectId"]');
     projectVC.$boardsList = $(".main-container").find(".scroll-y-container");
     projectVC.$confirmDeleteModal = $("#modal-confirm-delete");
+
     projectVC.$projectsNotificationsButton = $(".button-notifications");
     projectVC.$projectsSettingsButton = $(".button-settings");
     projectVC.$projectsChatButton = $(".button-chat");
+
+    projectVC.$projectsNotificationsTab = $(".notifications-tab");
+    projectVC.$projectsSettingsTab = $(".settings-tab");
+    projectVC.$projectsChatTab = $(".chat-tab");
+
     projectVC.$projectsSettingsContainer = $(".settings-tab");
     projectVC.$projectsUsersList = $('[data-function="project-users-list"]');
     projectVC.$chatSendButton= $('#chat-tab-sendbutton');
@@ -59,6 +65,10 @@ var projectVC = {};
             }
         });
 
+        projectVC.$projectsChatTab.off('click').click(function(){
+            projectVC.$projectsChatButton.removeClass("button-chat--effect");
+        });
+
     };
 
     projectVC.initInvitations = function(){
@@ -96,7 +106,7 @@ var projectVC = {};
      };
 
      projectVC.showUsersToInvite = function(usersData){
-         var $dropdown = $('<div class="custom-dropdown w-200"></div>');
+         var $dropdown = $('<div class="custom-dropdown w-270"></div>');
          var $dropdownItem;
          if(usersData.length === 0){
              $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--notfound">Nie znaleziono użytkownika</div>');
@@ -104,7 +114,6 @@ var projectVC = {};
          }
          else{
              $.each(usersData, function(index, user){
-                 console.log(user);
                  $dropdownItem = $('<div class="custom-dropdown__item custom-dropdown__item--user"></div>');
                  $dropdownItem.text(user.firstname.trim() + " " + user.lastname.trim());
                  $dropdownItem.attr('data-user-id', user.user_id);
@@ -197,6 +206,8 @@ var projectVC = {};
 
         socket.on('newNotification', function(message){
               var notificationsButton = $('.button-notifications');
+
+
               if(!notificationsButton.hasClass("button-notifications--effect")){
                   notificationsButton.addClass("button-notifications--effect");
               }
@@ -345,10 +356,17 @@ var projectVC = {};
 
     projectVC.appendUser = function(userToProject){
         var $userItem = $(projectVC.userTemplate);
+            $userItem.attr('data-user-id', userToProject.user_id);
             $userItem.text(userToProject.firstname.trim().substring(0,1).toUpperCase() + userToProject.lastname.trim().substring(0,1).toUpperCase());
             $userItem.tooltip({
                  placement: "bottom",
                  title: userToProject.firstname.trim() + " " + userToProject.lastname.trim()
+             });
+
+             $userItem.draggable({
+                 revert: true,
+                 helper: 'clone',
+                 appendTo: 'body'
              })
         projectVC.$projectsUsersList.append($userItem);
     };
@@ -397,6 +415,37 @@ var projectVC = {};
             });
         $.each(boardData.tasks, function(index, taskItem) {
             var $taskItem = $(projectVC.taskTemplate);
+
+            $taskItem.droppable({
+                drop: function(event, ui){
+                    var userId = $(ui.draggable).attr('data-user-id');
+                    var $userItem = $(ui.draggable).clone();
+                        $userItem.removeClass("ui-draggable ui-draggable-handle");
+
+
+                    $(".ui-draggable-dragging").remove();
+
+                    $.ajax({
+                        type     : "POST",
+                        url      : "/addUserToTask",
+                        data     : {
+                            userId : userId,
+                            taskId : taskItem.task_id
+                        },
+                        success: function(ret) {
+                            $userItem.tooltip({
+                                title: ret.data.firstname.trim() + " " + ret.data.lastname.trim(),
+                                placement: "bottom"
+                            });
+                            $('[data-task-id="'+ taskItem.task_id +'"]').find(".task-users").append($userItem);
+                        },
+                        error: function(jqXHR, errorText, errorThrown) {
+                          console.log("Error occured at addUserToTask()");
+                        }
+                    });
+                }
+            });
+
             $taskItem.off('dblclick').dblclick(function(){
                 taskEdit.initView(taskItem.task_id);
             });
@@ -404,7 +453,19 @@ var projectVC = {};
             $taskItem.find('[data-function="task-name"]').text(taskItem.name);
             $taskItem.find('[data-function="task-description"]').text(taskItem.description);
 
+            $.each(taskItem.users_to_tasks, function(index, user){
+                var $userItem = $(projectVC.userTemplate);
+                    $userItem.attr('data-user-id', user.user.user_id);
+                    $userItem.text(user.user.firstname.trim().substring(0,1).toUpperCase() + user.user.lastname.trim().substring(0,1).toUpperCase());
+                    $userItem.tooltip({
+                        title: user.user.firstname.trim() + " " + user.user.lastname.trim(),
+                        placement: "bottom"
+                    });
+                $taskItem.find(".task-users").append($userItem);
+            });
+
             $boardItem.find(".tasks-list").append($taskItem);
+
         });
 
         $boardItem.find(".card-custom__settings-menu").off('click').click(projectVC.showSettingsDropdown);
@@ -502,6 +563,7 @@ var projectVC = {};
         '<li class="task ui-sortable-handle">',
         '	<h6 data-function="task-name"></h6>',
         '	<div data-function="task-description" class="cut-string"></div>',
+        '   <div class="task-users"></div>',
         '</li>'
     ].join("\n");
 

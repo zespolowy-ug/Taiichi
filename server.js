@@ -95,7 +95,13 @@ app.post('/projectDetails', function(req, res) {
             include: [{
                 model: models.board,
                 include: [{
-                    model: models.task
+                    model: models.task,
+                    include: [{
+                        model: models.users_to_tasks,
+                        include: [{
+                            model: models.user
+                        }]
+                    }]
                 }]
             },
             {
@@ -558,6 +564,41 @@ app.post('/addTaskComment', function(req, res) {
         }));
     });
 
+});
+
+app.post('/addUserToTask', function(req, res) {
+    var taskId = req.body.taskId;
+    var userId = req.body.userId;
+
+    var assignUser = function() {
+        return models.users_to_tasks.create({
+            taskTaskId: taskId,
+            userUserId: userId
+        }).then(userToTaskData => {
+            return models.user.findOne({
+                where: {
+                    "user_id": parseInt(userId)
+                }
+            });
+        });
+    };
+
+    var userData = assignUser().then(function(data) {
+        models.notifications.create({
+            content: data.firstname + ' ' + data.lastname + " dołączył/a do zadania",
+            task_id: taskId
+        }).then(notif => {
+            io.emit("newNotification", {
+                notification: notif
+            });
+        });
+
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
 });
 
 app.post('/sendMessage', function(req, res) {
