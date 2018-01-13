@@ -32,7 +32,7 @@ h1 {
 		overflow-x: scroll;
 		overflow-y: hidden;
 		height: calc(100vh - 50px);
-	    background: #e6e6e6;
+	    background: #2d2d2d;
         transition: .3s;
 	}
 
@@ -84,7 +84,7 @@ h1 {
 	.card-custom-title{
         position: relative;
 		line-height: 30px;
-	    background: black;
+	    background: #3f3f3f;
 		padding-left: 10px;
 		color: white;
 	}
@@ -236,7 +236,7 @@ h1 {
     height: 30px;
     line-height: 30px;
     padding-left: 10px;
-    background-color: black;
+    background-color: #3f3f3f;
     color: #fff;
 }
 
@@ -504,6 +504,8 @@ h1 {
     background: #f9f9f9;
     padding: 5px 8px;
     font-size: 12px;
+    word-wrap: break-word;
+    max-width: 100%;
 }
 
 .chat-message-user{
