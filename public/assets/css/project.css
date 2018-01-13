@@ -22,7 +22,6 @@ h1 {
 /*
  * Sidebar
  */
-<<<<<<< HEAD
 	.main-container{
 		padding-top: 8px;
 		display: inline-block;
@@ -42,8 +41,6 @@ h1 {
         right: 300px;
         transition: .3s;
     }
-=======
->>>>>>> 02a1d45d664072af463138154684cc53c8270023
 
 .main-container {
     padding-top: 8px;
@@ -60,7 +57,6 @@ h1 {
     transition: .3s;
 }
 
-<<<<<<< HEAD
 	.card-custom-wrapper{
 		-webkit-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
 		-moz-box-shadow: 2px 2px 20px -10px rgba(0,0,0,0.75);
@@ -115,12 +111,10 @@ h1 {
         transition: .3s;
         outline: none;
     }
-=======
 .main-container--collapsed {
     right: 300px;
     transition: .3s;
 }
->>>>>>> 02a1d45d664072af463138154684cc53c8270023
 
 .scroll-y-container {
     padding: 5px;
