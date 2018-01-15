@@ -234,14 +234,17 @@
                     </div>
                     <div role="tabpanel" class="tab-pane fade in" id="files-tab-edit">
                         <div class="col-xs-4">
-                           <div class="form-group">
+                           <!-- <div class="form-group">-->
                              <table class="table">
                                 <tbody id="task-edit-filesTable">
                                 </tbody>
                               </table>
-                             <label class="control-label">Dodaj nowy plik:</label>
+                             <!-- <label class="control-label">Dodaj nowy plik:</label>
                              <input type="file" class="filestyle" id="task-edit-fileInput" data-buttonText="Wybierz">
-                           </div>
+                           </div> -->
+
+                           <button id="task-file-add" class="btn btn-secondary" type="button">Dodaj pliki</button>
+                           <input type="file" name="uploads[]" id="task-edit-fileInput" style="display: none;">
                         </div>
                     </div>
                 </div>

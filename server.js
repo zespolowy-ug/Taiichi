@@ -8,6 +8,13 @@ var exphbs = require('express-handlebars');
 var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var formidable = require('formidable');
+var fs = require('fs');
+var qs = require('querystring');
+var crypto = require('crypto');
+
+inspect = require('util').inspect;
+var Busboy = require('busboy');
 
 var viewsPath = path.join(__dirname, 'app', 'views');
 //For Handlebars
@@ -448,7 +455,10 @@ app.post('/taskData', function(req, res) {
         return models.task.findOne({
             where: {
                 "task_id": parseInt(taskId)
-            }
+            },
+            include: [{
+                model: models.tasks_files
+            }]
         });
     }
 
@@ -473,6 +483,26 @@ app.post('/taskComments', function(req, res) {
     }
 
     var commentData = findComments().then(function(data) {
+        res.setHeader('Content-Type', 'application/json');
+
+        res.send(JSON.stringify({
+            data: data || null
+        }));
+    });
+});
+
+app.post('/taskFiles', function(req, res) {
+    var taskId = req.param("taskId");
+
+    var findFiles = function() {
+        return models.tasks_files.findAll({
+            where: {
+                "taskTaskId": parseInt(taskId)
+            }
+        });
+    }
+
+    var fileData = findFiles().then(function(data) {
         res.setHeader('Content-Type', 'application/json');
 
         res.send(JSON.stringify({
@@ -542,7 +572,6 @@ app.post('/changeTaskBoard', function(req, res) {
 app.post('/addTaskComment', function(req, res) {
     var taskId = req.param("taskId");
     var content = req.param("content");
-    console.log(req.user);
 
     var createComment = function() {
         return models.tasks_comments.create({
@@ -600,6 +629,81 @@ app.post('/addUserToTask', function(req, res) {
         }));
     });
 });
+
+app.post('/uploadTaskFile', function(req, res){
+  var form = new formidable.IncomingForm();
+  // console.log(req);
+      form.parse(req);
+      // console.log(req);
+      form.multiples = true;
+      form.uploadDir = path.join(__dirname, '/uploads');
+
+  var taskId;
+
+  form.on('file', function(field, file) {
+
+      if(file.type === "application/json"){
+          // console.log(file);
+          console.log(field);
+          taskId = field;
+      }
+      else{
+          console.log(file.name);
+          var date = new Date().toString();
+          var hashedDate = crypto.createHash('md5').update(date).digest("hex");
+          var newName = hashedDate + file.name;
+
+          var createFile = function() {
+              return models.tasks_files.create({
+                  taskTaskId: taskId,
+                  name: newName,
+                  original_name: file.name
+              }).then(fileData => {
+                  return fileData;
+              });
+          };
+
+          var fileData = createFile().then(function(data) {
+              res.send(JSON.stringify({
+                  data: 'success' || null
+              }));
+              fs.rename(file.path, path.join(form.uploadDir, newName));
+          });
+      }
+
+  });
+
+
+
+
+  form.on('error', function(err) {
+    console.log('An error has occured: \n' + err);
+  });
+
+
+});
+
+
+app.get('/downloadTaskFile', function(req, res){
+    // var fileId = req.body.fileId;
+
+    // var findFile = function() {
+    //     return models.tasks_files.findOne({
+    //         where: {
+    //             "file_id": parseInt(fileId)
+    //         }
+    //     });
+    // }
+    //
+    // var fileData = findFile().then(function(data) {
+    //     // var file = __dirname + '/uploads/' + data.name;
+        var file = __dirname + '/uploads/4505c2dbd9ffdc15c14491a85d02e1b9obrazek 4.png';
+        res.download(file);
+    // 
+    // });
+
+  });
+
 
 app.post('/sendMessage', function(req, res) {
     var projectId = req.param("projectId");
