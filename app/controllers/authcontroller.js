@@ -13,17 +13,11 @@ exports.dashboard = function(req, res) {
     res.render('dashboard', {layout: 'main'});
 }
 
-
-// exports.project = function(req, res) {
-//     res.render('project', {layout: 'main'});
-// }
-
-
 exports.project = function(req, res) {
     var projectId = req.params.projectId;
 
     res.render('project', {projectId: projectId, layout: 'main'});
-    
+
 
 };
 

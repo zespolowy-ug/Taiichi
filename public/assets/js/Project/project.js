@@ -452,7 +452,18 @@ var projectVC = {};
             $taskItem.attr('data-task-id', taskItem.task_id);
             $taskItem.find('[data-function="task-name"]').text(taskItem.name);
             $taskItem.find('[data-function="task-description"]').text(taskItem.description);
-
+            if(taskItem.priority==="Natychmiastowy"){
+                $taskItem.css({"border-left": "4px solid red"});
+            }
+            if(taskItem.priority==="Wysoki"){
+                $taskItem.css({"border-left": "4px solid orange"});
+            }
+            if(taskItem.priority==="Normalny"){
+                $taskItem.css({"border-left": "4px solid lightgreen"});
+            }
+            if(taskItem.priority==="Niski"){
+                $taskItem.css({"border-left": "4px solid grey"});
+            }
             $.each(taskItem.users_to_tasks, function(index, user){
                 var $userItem = $(projectVC.userTemplate);
                     $userItem.attr('data-user-id', user.user.user_id);

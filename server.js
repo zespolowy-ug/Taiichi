@@ -516,6 +516,7 @@ app.post('/taskEdit', function(req, res) {
     var taskId = req.param("taskId");
     var taskName = req.param("taskName");
     var taskDescription = req.param("taskDescription");
+    var taskPriority = req.param("taskPriority");
 
     var updateTask = function() {
         return models.task.find({
@@ -525,7 +526,8 @@ app.post('/taskEdit', function(req, res) {
         }).then(taskItem => {
             taskItem.updateAttributes({
                 name: taskName,
-                description: taskDescription
+                description: taskDescription,
+                priority: taskPriority
             })
 
             return taskItem;
