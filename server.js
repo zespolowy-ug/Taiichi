@@ -515,6 +515,7 @@ app.post('/taskEdit', function(req, res) {
     var taskId = req.param("taskId");
     var taskName = req.param("taskName");
     var taskDescription = req.param("taskDescription");
+    var taskPriority = req.param("taskPriority");
 
     var updateTask = function() {
         return models.task.find({
@@ -524,7 +525,8 @@ app.post('/taskEdit', function(req, res) {
         }).then(taskItem => {
             taskItem.updateAttributes({
                 name: taskName,
-                description: taskDescription
+                description: taskDescription,
+                priority: taskPriority
             })
 
             return taskItem;
@@ -699,7 +701,7 @@ app.get('/downloadTaskFile', function(req, res){
     //     // var file = __dirname + '/uploads/' + data.name;
         var file = __dirname + '/uploads/4505c2dbd9ffdc15c14491a85d02e1b9obrazek 4.png';
         res.download(file);
-    // 
+    //
     // });
 
   });

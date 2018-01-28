@@ -11,7 +11,7 @@ var taskEdit = {};
     taskEdit.$taskFileInput = taskEdit.$modal.find('#task-edit-fileInput');
     taskEdit.$taskFilesList = [];
     taskEdit.$taskFilesTable = taskEdit.$modal.find('#task-edit-filesTable');
-
+    taskEdit.$taskPriority = taskEdit.$modal.find("#priority");
     taskEdit.taskId = null;
 
     taskEdit.initView = function(taskId) {
@@ -129,7 +129,7 @@ var taskEdit = {};
                 taskEdit.$taskNameHeader.text(ret.data.name);
                 taskEdit.$taskName.val(ret.data.name);
                 taskEdit.$taskDescription.val(ret.data.description);
-
+                taskEdit.$taskPriority.val(ret.data.priority);
                 taskEdit.$taskFilesTable.html("");
 
                 $.each(ret.data.tasks_files, function(index, taskFile){
@@ -188,7 +188,8 @@ var taskEdit = {};
             data: {
                 taskId: taskId,
                 taskName: taskEdit.$taskName.val(),
-                taskDescription: taskEdit.$taskDescription.val()
+                taskDescription: taskEdit.$taskDescription.val(),
+                taskPriority: taskEdit.$taskPriority.val()
             },
             success: function(ret) {
                 taskEdit.updateTaskData(ret.data);
@@ -204,6 +205,18 @@ var taskEdit = {};
         var $editedTask = $('.task[data-task-id="' + taskData.task_id + '"]');
         $editedTask.find('[data-function="task-name"]').text(taskData.name);
         $editedTask.find('[data-function="task-description"]').text(taskData.description);
+        if(taskData.priority==="Natychmiastowy"){
+            $editedTask.css({"border-left": "4px solid red"});
+        }
+        if(taskData.priority==="Wysoki"){
+            $editedTask.css({"border-left": "4px solid orange"});
+        }
+        if(taskData.priority==="Normalny"){
+            $editedTask.css({"border-left": "4px solid lightgreen"});
+        }
+        if(taskData.priority==="Niski"){
+            $editedTask.css({"border-left": "4px solid grey"});
+        }
     };
 
     taskEdit.appendComment = function(commentData) {
