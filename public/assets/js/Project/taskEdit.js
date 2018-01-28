@@ -103,19 +103,26 @@ var taskEdit = {};
         var $clickedItem = $(this);
         var fileId = $clickedItem.attr('data-file-id');
 
-        $.ajax({
-            type: "GET",
-            url: "/downloadTaskFile",
-            // data: {
-            //     fileId: fileId
-            // },
-            success: function(ret) {
+        var iFrame = $('<iframe style="display: none;"></iframe>');
 
-            },
-            error: function(jqXHR, errorText, errorThrown) {
-                console.log("Error occured at projectDetails()");
-            }
-        });
+        $("body").find("iframe").remove();
+        $("body").append(iFrame);
+
+        iFrame.attr('src', '/downloadTaskFile?fileId=' + fileId);
+
+        // $.ajax({
+        //     type: "GET",
+        //     url: "/downloadTaskFile",
+        //     data: {
+        //         fileId: fileId
+        //     },
+        //     success: function(ret) {
+        //
+        //     },
+        //     error: function(jqXHR, errorText, errorThrown) {
+        //         console.log("Error occured at projectDetails()");
+        //     }
+        // });
     };
 
     taskEdit.loadData = function(taskId) {

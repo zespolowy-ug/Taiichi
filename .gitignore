@@ -60,3 +60,7 @@ typings/
 
 # sonarqube files
 /.scannerwork/
+
+# upload files
+
+/uploads/*

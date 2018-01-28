@@ -12,6 +12,7 @@ var formidable = require('formidable');
 var fs = require('fs');
 var qs = require('querystring');
 var crypto = require('crypto');
+var url = require('url');
 
 inspect = require('util').inspect;
 var Busboy = require('busboy');
@@ -685,22 +686,22 @@ app.post('/uploadTaskFile', function(req, res){
 
 
 app.get('/downloadTaskFile', function(req, res){
-    // var fileId = req.body.fileId;
+    var fileId = req.query.fileId;
 
-    // var findFile = function() {
-    //     return models.tasks_files.findOne({
-    //         where: {
-    //             "file_id": parseInt(fileId)
-    //         }
-    //     });
-    // }
-    //
-    // var fileData = findFile().then(function(data) {
-    //     // var file = __dirname + '/uploads/' + data.name;
-        var file = __dirname + '/uploads/4505c2dbd9ffdc15c14491a85d02e1b9obrazek 4.png';
+    var findFile = function() {
+        return models.tasks_files.findOne({
+            where: {
+                "file_id": parseInt(fileId)
+            }
+        });
+    }
+
+    var fileData = findFile().then(function(data) {
+        var file = __dirname + '/uploads/' + data.name;
+        // var file = __dirname + '/uploads/4505c2dbd9ffdc15c14491a85d02e1b9obrazek 4.png';
         res.download(file);
-    // 
-    // });
+    //
+    });
 
   });
 
